@@ -53,25 +53,40 @@ int main(int argc, char** argv) {
 	}
 
 	
-	SDL_Surface* runSpriteSurface = IMG_Load("assets/HeroRun.png");
+	SDL_Surface* heroSurface = IMG_Load("assets/HeroRun.png");
 
 	//set background of sprite to be transparent
 	//params: surface to change
 	//		1 = turn on,  0 = turn off
 	//		which colour to user as colour key (SDL_MapRGB will find closest colour match in the surface to set it to)
-	SDL_SetColorKey(runSpriteSurface, 1, SDL_MapRGB(runSpriteSurface->format, 10, 140, 200));
+	SDL_SetColorKey(heroSurface, 1, SDL_MapRGB(heroSurface->format, 10, 140, 200));
 
 	//convert surface to texture
-	SDL_Texture* runSpriteSheet = SDL_CreateTextureFromSurface(renderer, runSpriteSurface); //=IMG_LoadTexture(renderer, "assets/run.png"); load png straigth into texture
+	SDL_Texture* heroSpriteSheet = SDL_CreateTextureFromSurface(renderer, heroSurface); //=IMG_LoadTexture(renderer, "assets/run.png"); load png straigth into texture
 	//1 frme is 32x32 pixels in this animation, so our source rectangle will be this big
 	//SDL_Rect runSourceRect = { 0,0,32,32 }; // x=0, y=0, w=0, h=0
 
 	//SDL_Rect runDestRect = { 0,0,32,32 };
 
-	Animation anim1(runSpriteSheet, renderer, 9, 400, 460, 0.06);
+	Animation anim1(heroSpriteSheet, renderer, 9, 400, 460, 0.06);
 
 	//list of all our game entities
 	list<Entity*> entities; 
+
+
+	/*
+
+	//build title background
+	TitleBackgrond* titleBackground = new TitleBackgrond();
+	titleBackground->setXY(0, 0);
+	titleBackground->setWH(300, 300);
+	titleBackground->setRenderer(renderer);
+	//add to list
+	entities.push_back(titleBackground);
+	*/
+
+
+
 	//build a hero
 	Hero* hero = new Hero();
 	hero->setAnimation(&anim1);
@@ -80,18 +95,29 @@ int main(int argc, char** argv) {
 	//add to list
 	entities.push_back(hero);
 
-	//build title background
-	TitleBackgrond* titleBackground = new TitleBackgrond();
-	titleBackground->setXY(0, 0);
-	titleBackground->setWH(0, 0);
-	titleBackground->setRenderer(renderer);
-	//add to list
-	entities.push_back(titleBackground);
+
+
+	
+	//LOAD UP STUPID KNIGTH.bmp file
+	//load image up as surface
+	SDL_Surface* titleBackgroundSurface = IMG_Load("assets/TitleBackground.png");
+	//NOTE: if you want to programatically screw with image pixel data, do it in when its in surface form
+	//next, convert to texture (textures live in the graphics card, which speeds up rendering)
+	SDL_Texture* titleBackgroundTexture = SDL_CreateTextureFromSurface(renderer, titleBackgroundSurface);
+	//once we are finished with surface, free up its memory
+	//SDL_FreeSurface(titleBackgroundSurface);
+
+	//setting up source rectangle for knight texture
+	SDL_Rect sourceRect = { 0,0,800,600 }; //x=0, y=0 w=0 h=0
+
+	SDL_Rect destinationRect = { 0,0,800,600 };
+	
+
 
 	//setup input handlers
 	KeyboardHandler keyboardHandler;
 	keyboardHandler.hero = hero;
-
+	   
 
 	//to help with working out deltaTime
 	Uint32 lastUpdate = SDL_GetTicks();
@@ -124,7 +150,7 @@ int main(int argc, char** argv) {
 		SDL_RenderFillRect(renderer, &rect);
 
 		//draw our knight
-		//SDL_RenderCopy(renderer, knigthTexture, &sourceRect, &destinationRect);
+		SDL_RenderCopy(renderer, titleBackgroundTexture, &sourceRect, &destinationRect);
 
 		//drow our run animation
 		/*
