@@ -16,6 +16,13 @@ void Entity::setRenderer(SDL_Renderer* renderer)
 	this->renderer = renderer;
 }
 
+void Entity::setTexture(SDL_Texture* texture, SDL_Rect sourceRect, SDL_Rect destinationRect) {
+	this->texture = texture;
+	this->sourceRect = sourceRect;
+	this->destinationRect = destinationRect;
+
+}
+
 void Entity::setXY(float x, float y)
 {
 	position.x = x;
@@ -46,5 +53,5 @@ void Entity::updateMovement(float dt) {
 
 void Entity::draw()
 {
-	//let subclasses fill these in if they want
+
 }

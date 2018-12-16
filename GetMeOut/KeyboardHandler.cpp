@@ -22,9 +22,71 @@ void KeyboardHandler::update(SDL_Event* event) {
 			hero->position.y = 200;
 		}
 
+		// If user press down on title screen
+		if (event->key.keysym.scancode == SDL_SCANCODE_DOWN && event->key.repeat == 0) {
+			 //check menuPointer, if equal 3, set menuPointer to 1. If not, increase 1
+			if (menuPointer != 3)
+			{
+				menuPointer++;
+				hero->position.y += 50;
+			}
+			else
+			{
+				menuPointer = 1;
+				hero->position.y = 340;
+			}
+
+		}
+
+		// if player press up in title screen
+		if (event->key.keysym.scancode == SDL_SCANCODE_UP && event->key.repeat == 0) {
+			//check menuPointer, if equal 3, set menuPointer to 1. If not, increase 1
+			if (menuPointer != 1)
+			{
+				menuPointer--;
+				hero->position.y -= 50;
+			}
+			else
+			{
+				menuPointer = 3;
+				hero->position.y = 440;
+			}
+
+		}
+
+
+		// Activities when player press enter in titile screen
+		if (event->key.keysym.scancode == SDL_SCANCODE_RETURN && event->key.repeat == 0) {
+			// check if menuPointer
+			// 1 = play game
+			// 2 = show top rank screen
+			// 3 = exit game
+			if (menuPointer == 1)
+			{
+				//NOTE: show play game screen
+
+			}
+			else if (menuPointer == 2)
+			{
+				//NOTE: show top rank screen
+
+			}
+			else if(menuPointer == 3)
+			{
+
+				//NOTE: Check with Matt. how to exit program.
+
+				//shuts down all sdl sub systems
+				SDL_Quit();
+
+			}
+
+
+		}
 	}
 }
 
+/*
 void KeyboardHandler::updateHeldKeys() {
 	//get array of all keyboard key states (1 = hel down, 0 = not held down)
 	const Uint8* keystates = SDL_GetKeyboardState(NULL); //param: array of ints to indicate which keys we want states about or NULL for all
@@ -44,3 +106,4 @@ void KeyboardHandler::updateHeldKeys() {
 		hero->velocity.x = 500;
 
 }
+*/
