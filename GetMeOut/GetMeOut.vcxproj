@@ -128,6 +128,7 @@
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="KeyboardHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="TitleBackgrond.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
@@ -137,6 +138,7 @@
     <ClInclude Include="Hero.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="KeyboardHandler.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="TitleBackgrond.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>

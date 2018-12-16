@@ -49,8 +49,8 @@ void Hero::draw()
 {
 	if (animation != NULL) {
 		if (faceRight)
-			animation->draw(position.x, position.y, 0.25f);
+			animation->draw(position.x, position.y, 0.1f);
 		else
-			animation->draw(position.x, position.y, 0.25f, true);
+			animation->draw(position.x, position.y, 0.1f, true);
 	}
 }

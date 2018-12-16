@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "Hero.h"
 #include "TitleBackgrond.h"
+#include "Text.h"
 
 #include "KeyboardHandler.h"
 
@@ -14,6 +15,9 @@
 using namespace std;
 
 int main(int argc, char** argv) {
+Private: 
+	SDL_Rect sourceRect, destinationRect;
+
 	//initialise sdl2 subsystems
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
@@ -53,6 +57,138 @@ int main(int argc, char** argv) {
 	}
 
 	
+	
+
+	//list of all our game entities
+	list<Entity*> entities;
+
+	
+	//LOAD UP Title Background
+	//load image up as surface
+	SDL_Surface* titleBackgroundSurface = IMG_Load("assets/TitleBackground.png");
+	//next, convert to texture 
+	SDL_Texture* titleBackgroundTexture = SDL_CreateTextureFromSurface(renderer, titleBackgroundSurface);
+	//once we are finished with surface, free up its memory
+	SDL_FreeSurface(titleBackgroundSurface);
+
+	//setting up source rectangle for knight texture
+	sourceRect = { 0,0,800,600 }; //x=0, y=0 w=0 h=0
+
+	destinationRect = { 0,0,800,600 };
+
+	//build title background
+	TitleBackgrond* titleBackground = new TitleBackgrond();
+	titleBackground->setXY(100, 100);
+	titleBackground->setWH(300, 300);
+	titleBackground->setTexture(titleBackgroundTexture, sourceRect, destinationRect);
+	titleBackground->setRenderer(renderer);
+	//add to list
+	entities.push_back(titleBackground);
+	
+	
+
+	//LOAD UP Game Title
+	//load image up as surface
+	SDL_Surface* gameTitleSurface = IMG_Load("assets/GameTitle.png");
+	//next, convert to texture 
+	SDL_Texture* gameTitleTexture = SDL_CreateTextureFromSurface(renderer, gameTitleSurface);
+	//once we are finished with surface, free up its memory
+	SDL_FreeSurface(gameTitleSurface);
+
+	//setting up source rectangle for knight texture
+	sourceRect = { 0,0,660,150 }; //x=0, y=0 w=0 h=0
+
+	destinationRect = { 70,50,660,150 };
+
+	//build title background
+	Text* gameTitle = new Text();
+	gameTitle->setXY(100, 100);
+	gameTitle->setWH(660, 150);
+	gameTitle->setTexture(gameTitleTexture, sourceRect, destinationRect);
+	gameTitle->setRenderer(renderer);
+	//add to list
+	entities.push_back(gameTitle);
+
+
+
+	//LOAD UP menu play game
+	//load image up as surface
+	SDL_Surface* menuPlayGameSurface = IMG_Load("assets/MenuPlayGame.png");
+	//next, convert to texture 
+	SDL_Texture* menuPlayGameTexture = SDL_CreateTextureFromSurface(renderer, menuPlayGameSurface);
+	//once we are finished with surface, free up its memory
+	SDL_FreeSurface(menuPlayGameSurface);
+
+	//setting up source rectangle for knight texture
+	sourceRect = { 0,0,219,49 }; //x=0, y=0 w=0 h=0
+
+	destinationRect = { 292,350,219,49 };
+
+	//build menu play game
+	Text* menuPlayGame = new Text();
+	menuPlayGame->setXY(100, 100);
+	menuPlayGame->setWH(219, 49);
+	menuPlayGame->setTexture(menuPlayGameTexture, sourceRect, destinationRect);
+	menuPlayGame->setRenderer(renderer);
+	//add to list
+	entities.push_back(menuPlayGame);
+
+
+
+	//LOAD UP menu top rank
+	//load image up as surface
+	SDL_Surface* menuTopRankSurface = IMG_Load("assets/MenuTopRank.png");
+	//next, convert to texture 
+	SDL_Texture* menuTopRankTexture = SDL_CreateTextureFromSurface(renderer, menuTopRankSurface);
+	//once we are finished with surface, free up its memory
+	SDL_FreeSurface(menuTopRankSurface);
+
+	//setting up source rectangle for knight texture
+	sourceRect = { 0,0,185,47 }; //x=0, y=0 w=0 h=0
+
+	destinationRect = { 292,400,185,47 };
+
+	//build menu top rank
+	Text* menuTopRank = new Text();
+	menuTopRank->setXY(100, 100);
+	menuTopRank->setWH(185, 47);
+	menuTopRank->setTexture(menuTopRankTexture, sourceRect, destinationRect);
+	menuTopRank->setRenderer(renderer);
+	//add to list
+	entities.push_back(menuTopRank);
+
+
+
+
+	//LOAD UP menu Exit
+	//load image up as surface
+	SDL_Surface* menuExitSurface = IMG_Load("assets/MenuExit.png");
+	//next, convert to texture 
+	SDL_Texture* menuExitTexture = SDL_CreateTextureFromSurface(renderer, menuExitSurface);
+	//once we are finished with surface, free up its memory
+	SDL_FreeSurface(menuExitSurface);
+
+	//setting up source rectangle for knight texture
+	sourceRect = { 0,0,76,32 }; //x=0, y=0 w=0 h=0
+
+	destinationRect = { 292,450,76,32 };
+
+	//build menu Exit
+	Text* menuExit = new Text();
+	menuExit->setXY(100, 100);
+	menuExit->setWH(76, 32);
+	menuExit->setTexture(menuExitTexture, sourceRect, destinationRect);
+	menuExit->setRenderer(renderer);
+	//add to list
+	entities.push_back(menuExit);
+
+
+
+
+
+
+
+
 	SDL_Surface* heroSurface = IMG_Load("assets/HeroRun.png");
 
 	//set background of sprite to be transparent
@@ -68,50 +204,21 @@ int main(int argc, char** argv) {
 
 	//SDL_Rect runDestRect = { 0,0,32,32 };
 
-	Animation anim1(heroSpriteSheet, renderer, 9, 400, 460, 0.06);
+	//free up its memory
+	SDL_FreeSurface(heroSurface);
 
-	//list of all our game entities
-	list<Entity*> entities; 
-
-
-	/*
-
-	//build title background
-	TitleBackgrond* titleBackground = new TitleBackgrond();
-	titleBackground->setXY(0, 0);
-	titleBackground->setWH(300, 300);
-	titleBackground->setRenderer(renderer);
-	//add to list
-	entities.push_back(titleBackground);
-	*/
-
-
+	Animation anim1(heroSpriteSheet, renderer, 10, 400, 460, 0.08);
 
 	//build a hero
 	Hero* hero = new Hero();
 	hero->setAnimation(&anim1);
 	hero->setRenderer(renderer);
-	hero->setXY(200, 200);
+	hero->setXY(240, 340);
 	//add to list
 	entities.push_back(hero);
 
 
 
-	
-	//LOAD UP STUPID KNIGTH.bmp file
-	//load image up as surface
-	SDL_Surface* titleBackgroundSurface = IMG_Load("assets/TitleBackground.png");
-	//NOTE: if you want to programatically screw with image pixel data, do it in when its in surface form
-	//next, convert to texture (textures live in the graphics card, which speeds up rendering)
-	SDL_Texture* titleBackgroundTexture = SDL_CreateTextureFromSurface(renderer, titleBackgroundSurface);
-	//once we are finished with surface, free up its memory
-	//SDL_FreeSurface(titleBackgroundSurface);
-
-	//setting up source rectangle for knight texture
-	SDL_Rect sourceRect = { 0,0,800,600 }; //x=0, y=0 w=0 h=0
-
-	SDL_Rect destinationRect = { 0,0,800,600 };
-	
 
 
 	//setup input handlers
@@ -135,29 +242,13 @@ int main(int argc, char** argv) {
 
 		cout << "dt = " << dt << endl;
 
-		//set current drawing colour for renderer
-		SDL_SetRenderDrawColor(renderer, 255, 0, 168, 255);
-		//clear screen using current draw colour
-		SDL_RenderClear(renderer);
 
-		//change draw colour for rectangle
-		SDL_SetRenderDrawColor(renderer, 0, 228, 255, 255);
 
-		//make a rectangle object( x, y, w, h)
-		SDL_Rect rect = { 100,50, 300, 240 };
 
-		//draw a filled in rectangle
-		SDL_RenderFillRect(renderer, &rect);
+		//draw title background
+		//SDL_RenderCopy(renderer, titleBackgroundTexture, &sourceRect, &destinationRect);
 
-		//draw our knight
-		SDL_RenderCopy(renderer, titleBackgroundTexture, &sourceRect, &destinationRect);
 
-		//drow our run animation
-		/*
-		int const runNumberOfFrames = 4;
-		runSourceRect.x = runSourceRect.w * int((SDL_GetTicks() / 100) % runNumberOfFrames);
-		SDL_RenderCopy(renderer, runSpriteSheet, &runSourceRect, &runDestRect);
-		*/
 
 		//Check for user inputs
 		SDL_Event event;
@@ -180,38 +271,12 @@ int main(int argc, char** argv) {
 
 		}
 		//check held keys OUTSIDE of input polling loop
-			keyboardHandler.updateHeldKeys();
+			//keyboardHandler.updateHeldKeys();
 
 
 
-		/*
-		//pass event object to our handlers
-			//if (gameControllerHandler.controller != NULL)
-				//gameControllerHandler.update(&event);
-			//else
-				keyboardHandler.update(&event);
 
-
-		}
-		//check held keys OUTSIDE of input polling loop
-		//if (gameControllerHandler.controller != NULL)
-			keyboardHandler.update(&event);
-
-			mouseHandler.update(&event);
-			*/
-			/*
-			//update animations
-			anim1.update(dt);
-			anim2.update(dt);
-			anim3.update(dt);
-			//draw animations
-			anim1.draw(200, 50);
-			anim2.draw(200, 100, 5.0f);
-			anim3.draw(200, 150, true);
-			*/
-
-			//Loop through entities
-			//IF you have > VS2010
+		//Loop through entities
 		for (Entity* e : entities) {
 			e->update(dt);
 			e->draw();
@@ -221,14 +286,7 @@ int main(int argc, char** argv) {
 		//show the newly drawn up frame of the game
 		SDL_RenderPresent(renderer);
 
-
-		//if the game has run for 5 seconds (5000ms)
-		//if (SDL_GetTicks() > 5000)
-			//loop = false;	//quit the loop
-
 	}
-
-	//SDL_Delay(5000);//pause game for 5000ms
 
 	//CLEAN UP
 	SDL_DestroyRenderer(renderer);
@@ -238,7 +296,7 @@ int main(int argc, char** argv) {
 	SDL_Quit();
 
 
-	system("pause");
+	//system("pause");
 
 	return 0;
 }
