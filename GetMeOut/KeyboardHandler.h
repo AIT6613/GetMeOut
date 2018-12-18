@@ -5,10 +5,12 @@ class KeyboardHandler :
 	public InputHandler
 {
 
-private:
-	int menuPointer = 1;
-
+//private:
 public:
+	int menuPointer = 1;
+	bool menuSelected = false;
+
+//public:
 	KeyboardHandler();
 	~KeyboardHandler();
 
