@@ -273,6 +273,8 @@ Private:
 				if (keyboardHandler.menuSelected) {
 					if (keyboardHandler.menuPointer == 3)
 						loop = false;
+					
+					keyboardHandler.menuSelected = false;
 				}
 
 		}

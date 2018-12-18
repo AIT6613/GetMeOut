@@ -1,8 +1,6 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SDL Class Project.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  KeyboardHandler.cpp
   main.cpp
 c:\test\getmeout\getmeout\main.cpp(210): warning C4305: 'argument': truncation from 'double' to 'float'
 c:\test\getmeout\getmeout\main.cpp(239): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\test\getmeout\getmeout\main.cpp(18): warning C4102: 'Private': unreferenced label
-  Generating Code...
   GetMeOut.vcxproj -> C:\Test\GetMeOut\Debug\GetMeOut.exe
