@@ -57,31 +57,7 @@ void KeyboardHandler::update(SDL_Event* event) {
 
 		// Activities when player press enter in titile screen
 		if (event->key.keysym.scancode == SDL_SCANCODE_RETURN && event->key.repeat == 0) {
-			// check if menuPointer
-			// 1 = play game
-			// 2 = show top rank screen
-			// 3 = exit game
-			if (menuPointer == 1)
-			{
-				//NOTE: show play game screen
-
-			}
-			else if (menuPointer == 2)
-			{
-				//NOTE: show top rank screen
-
-			}
-			else if(menuPointer == 3)
-			{
-
-				//NOTE: Check with Matt. how to exit program.
-
-				//shuts down all sdl sub systems
-				SDL_Quit();
-
-			}
-
-
+			menuSelected = true;
 		}
 	}
 }

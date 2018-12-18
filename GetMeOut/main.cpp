@@ -269,6 +269,14 @@ Private:
 
 				keyboardHandler.update(&event);
 
+
+				if (keyboardHandler.menuSelected) {
+					if (keyboardHandler.menuPointer == 3)
+						loop = false;
+					
+					keyboardHandler.menuSelected = false;
+				}
+
 		}
 		//check held keys OUTSIDE of input polling loop
 			//keyboardHandler.updateHeldKeys();
