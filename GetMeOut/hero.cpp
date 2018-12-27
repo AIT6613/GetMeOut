@@ -1,7 +1,5 @@
 #include "Hero.h"
 
-
-
 Hero::Hero(void)
 {
 	animation = NULL;
@@ -20,19 +18,6 @@ void Hero::setAnimation(Animation* animation)
 
 void Hero::update(float dt)
 {
-	/*
-	//movement
-	if (faceRight)
-		velocity.x = 150;
-	else
-		velocity.x = -150;
-
-	if (position.x > 800)
-		faceRight = false;
-	else if (position.x <= 0)
-		faceRight = true;
-	*/
-
 	if (velocity.x > 0)
 		faceRight = true;
 	if (velocity.x < 0)

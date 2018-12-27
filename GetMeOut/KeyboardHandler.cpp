@@ -32,6 +32,7 @@ void KeyboardHandler::update(SDL_Event* event) {
 			}
 			else
 			{
+				//if it is the last menu, go back to first menu
 				menuPointer = 1;
 				hero->position.y = 340;
 			}
@@ -48,6 +49,7 @@ void KeyboardHandler::update(SDL_Event* event) {
 			}
 			else
 			{
+				//if it is the first menu, go back to last menu
 				menuPointer = 3;
 				hero->position.y = 440;
 			}

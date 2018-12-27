@@ -17,19 +17,17 @@ protected:
 public:
 	Vector position; //position
 	Vector velocity; //how fast and which way to move this thing
-	float w, h;
+	float w, h;	//size of object, w = width, h = height
 	
 
 	Entity();
 	~Entity();
 
-	void setRenderer(SDL_Renderer* renderer);
-	//void setTexture(SDL_Texture* texture, SDL_Rect sourecRect, SDL_Rect deatinationRect);
-	void setTexture(const char* fileName, SDL_Renderer* renderer);
-	void setXY(float x, float y);
-	void setX(float x);
-	void setY(float y);
-	void setWH(float w, float h);
+	void setTexture(const char* fileName, SDL_Renderer* renderer);	//load image to surface, then create texture from surface
+	void setXY(float x, float y);	//set position X,Y for object 
+	void setX(float x);	//set position x for object
+	void setY(float y);//set position y for object
+	void setWH(float w, float h);	//set size for object
 
 	virtual void update(float dt);
 	virtual void updateMovement(float dt);

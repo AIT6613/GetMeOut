@@ -1,9 +1,21 @@
 #include "Animation.h"
 
-
-Animation::Animation(SDL_Texture* spriteSheet, SDL_Renderer* renderer, int numberOfFrames, int frameWidth, int frameHeight, float frameDuration)
+Animation::Animation(const char * fileName, SDL_Renderer * renderer, int numberOfFrames, int frameWidth, int frameHeight, float frameDuration, int optionRemoveBackground, int r, int g, int b)
 {
-	this->spriteSheet = spriteSheet;
+	SDL_Surface* tempSurface = IMG_Load(fileName);
+
+	//set background of sprite to be transparent
+	//params: surface to change
+	//		1 = turn on,  0 = turn off
+	//		which colour to user as colour key (SDL_MapRGB will find closest colour match in the surface to set it to)
+	SDL_SetColorKey(tempSurface, optionRemoveBackground, SDL_MapRGB(tempSurface->format, r, g, b));
+
+	//convert surface to texture
+	this->spriteSheet = SDL_CreateTextureFromSurface(renderer, tempSurface);
+
+	//free up its memory
+	SDL_FreeSurface(tempSurface);
+
 	this->renderer = renderer;
 	this->numberOfFrames = numberOfFrames;
 	this->frameWidth = frameWidth;
@@ -45,7 +57,7 @@ void Animation::draw(int x, int y)
 	sourceRect.w = frameWidth;
 	sourceRect.h = frameHeight;
 
-	//destination, where do we want to draw this guy/gal
+	//destination to draw
 	SDL_Rect dest = { x,y, frameWidth,frameHeight };
 	//draw
 	SDL_RenderCopy(renderer, spriteSheet, &sourceRect, &dest);
@@ -60,7 +72,7 @@ void Animation::draw(int x, int y, float scale)
 	sourceRect.w = frameWidth;
 	sourceRect.h = frameHeight;
 
-	//destination, where do we want to draw this guy/gal
+	//destination to draw with the scale of object size
 	SDL_Rect dest = { x,y, frameWidth*scale,frameHeight*scale };
 	//draw
 	SDL_RenderCopy(renderer, spriteSheet, &sourceRect, &dest);
@@ -75,7 +87,7 @@ void Animation::draw(int x, int y, bool flip)
 	sourceRect.w = frameWidth;
 	sourceRect.h = frameHeight;
 
-	//destination, where do we want to draw this guy/gal
+	//destination, where do we want to draw
 	SDL_Rect dest = { x,y, frameWidth,frameHeight };
 
 	//get the correct flip flag
@@ -95,7 +107,7 @@ void Animation::draw(int x, int y, float scale, bool flip)
 	sourceRect.w = frameWidth;
 	sourceRect.h = frameHeight;
 
-	//destination, where do we want to draw this guy/gal
+	// destination to draw with the scale of object size
 	SDL_Rect dest = { x,y, frameWidth*scale,frameHeight*scale };
 
 	//get the correct flip flag

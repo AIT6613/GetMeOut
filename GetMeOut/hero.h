@@ -5,7 +5,7 @@
 class Hero : public Entity
 {
 private:
-	Animation* animation = NULL;
+	Animation* animation = NULL;	//animation that use for this entity
 	bool faceRight;
 
 
@@ -14,7 +14,7 @@ public:
 	Hero();
 	~Hero();
 
-	void setAnimation(Animation* animation);
+	void setAnimation(Animation* animation);	//set animateion to an entity
 
 	//overriding
 	virtual void update(float dt);

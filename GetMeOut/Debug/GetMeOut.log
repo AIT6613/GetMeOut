@@ -1,8 +1,26 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SDL Class Project.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Animation.cpp
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\animation.cpp(76): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\animation.cpp(76): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\animation.cpp(111): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\animation.cpp(111): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Backgrond.cpp
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\backgrond.cpp(18): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\backgrond.cpp(18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Entity.cpp
+  Hero.cpp
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\hero.cpp(37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\hero.cpp(39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  InputHandler.cpp
+  KeyboardHandler.cpp
+  Text.cpp
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\text.cpp(18): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\text.cpp(18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   main.cpp
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\main.cpp(130): warning C4305: 'argument': truncation from 'double' to 'float'
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\main.cpp(159): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\main.cpp(109): warning C4305: 'argument': truncation from 'double' to 'float'
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\main.cpp(133): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 \\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\main.cpp(18): warning C4102: 'Private': unreferenced label
 \\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\main.cpp(19): warning C4101: 'sourceRect': unreferenced local variable
 \\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\main.cpp(19): warning C4101: 'destinationRect': unreferenced local variable
+  Generating Code...
   GetMeOut.vcxproj -> \\Mac\Home\Documents\MyDocument\Practice project\AIT_Basic Game\GetMeOut\Debug\GetMeOut.exe

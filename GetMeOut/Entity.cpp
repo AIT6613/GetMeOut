@@ -1,7 +1,5 @@
 #include "Entity.h"
 
-
-
 Entity::Entity(void)
 {
 }
@@ -11,19 +9,6 @@ Entity::~Entity(void)
 {
 }
 
-void Entity::setRenderer(SDL_Renderer* renderer)
-{
-	this->renderer = renderer;
-}
-
-/*
-void Entity::setTexture(SDL_Texture* texture, SDL_Rect sourceRect, SDL_Rect destinationRect) {
-	this->texture = texture;
-	this->sourceRect = sourceRect;
-	this->destinationRect = destinationRect;
-
-}
-*/
 
 void Entity::setTexture(const char * fileName, SDL_Renderer* renderer)
 {
@@ -34,7 +19,7 @@ void Entity::setTexture(const char * fileName, SDL_Renderer* renderer)
 	//once we are finished with surface, free up its memory
 	SDL_FreeSurface(tempSurface);
 
-
+	this->renderer = renderer;
 	this->sourceRect = sourceRect;
 	this->destinationRect = destinationRect;
 
@@ -76,5 +61,5 @@ void Entity::updateMovement(float dt) {
 
 void Entity::draw()
 {
-
+	//let subclasses fill these in if they want
 }

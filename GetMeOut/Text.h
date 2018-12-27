@@ -3,9 +3,6 @@
 
 class Text : public Entity
 {
-private:
-	//float w, h;
-
 
 public:
 	Text();
