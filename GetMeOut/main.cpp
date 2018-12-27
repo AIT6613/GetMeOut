@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include "Entity.h"
 #include "Hero.h"
-#include "TitleBackgrond.h"
+#include "Backgrond.h"
 #include "Text.h"
 
 #include "KeyboardHandler.h"
@@ -62,131 +62,51 @@ Private:
 	//list of all our game entities
 	list<Entity*> entities;
 
-	
-	//LOAD UP Title Background
-	//load image up as surface
-	SDL_Surface* titleBackgroundSurface = IMG_Load("assets/TitleBackground.png");
-	//next, convert to texture 
-	SDL_Texture* titleBackgroundTexture = SDL_CreateTextureFromSurface(renderer, titleBackgroundSurface);
-	//once we are finished with surface, free up its memory
-	SDL_FreeSurface(titleBackgroundSurface);
-
-	//setting up source rectangle for knight texture
-	sourceRect = { 0,0,800,600 }; //x=0, y=0 w=0 h=0
-
-	destinationRect = { 0,0,800,600 };
-
 	//build title background
-	TitleBackgrond* titleBackground = new TitleBackgrond();
-	titleBackground->setXY(100, 100);
-	titleBackground->setWH(300, 300);
-	titleBackground->setTexture(titleBackgroundTexture, sourceRect, destinationRect);
+	Backgrond* titleBackground = new Backgrond();
+	titleBackground->setXY(0, 0);
+	titleBackground->setWH(800, 600);
+	titleBackground->setTexture("assets/TitleBackground.png",renderer);
 	titleBackground->setRenderer(renderer);
 	//add to list
 	entities.push_back(titleBackground);
 	
-	
 
-	//LOAD UP Game Title
-	//load image up as surface
-	SDL_Surface* gameTitleSurface = IMG_Load("assets/GameTitle.png");
-	//next, convert to texture 
-	SDL_Texture* gameTitleTexture = SDL_CreateTextureFromSurface(renderer, gameTitleSurface);
-	//once we are finished with surface, free up its memory
-	SDL_FreeSurface(gameTitleSurface);
-
-	//setting up source rectangle for knight texture
-	sourceRect = { 0,0,660,150 }; //x=0, y=0 w=0 h=0
-
-	destinationRect = { 70,50,660,150 };
-
-	//build title background
+	//build game title
 	Text* gameTitle = new Text();
-	gameTitle->setXY(100, 100);
+	gameTitle->setXY(70, 50);
 	gameTitle->setWH(660, 150);
-	gameTitle->setTexture(gameTitleTexture, sourceRect, destinationRect);
+	gameTitle->setTexture("assets/GameTitle.png", renderer);
 	gameTitle->setRenderer(renderer);
 	//add to list
 	entities.push_back(gameTitle);
 
-
-
-	//LOAD UP menu play game
-	//load image up as surface
-	SDL_Surface* menuPlayGameSurface = IMG_Load("assets/MenuPlayGame.png");
-	//next, convert to texture 
-	SDL_Texture* menuPlayGameTexture = SDL_CreateTextureFromSurface(renderer, menuPlayGameSurface);
-	//once we are finished with surface, free up its memory
-	SDL_FreeSurface(menuPlayGameSurface);
-
-	//setting up source rectangle for knight texture
-	sourceRect = { 0,0,219,49 }; //x=0, y=0 w=0 h=0
-
-	destinationRect = { 292,350,219,49 };
-
 	//build menu play game
 	Text* menuPlayGame = new Text();
-	menuPlayGame->setXY(100, 100);
+	menuPlayGame->setXY(292, 350);
 	menuPlayGame->setWH(219, 49);
-	menuPlayGame->setTexture(menuPlayGameTexture, sourceRect, destinationRect);
+	menuPlayGame->setTexture("assets/MenuPlayGame.png", renderer);
 	menuPlayGame->setRenderer(renderer);
 	//add to list
 	entities.push_back(menuPlayGame);
 
-
-
-	//LOAD UP menu top rank
-	//load image up as surface
-	SDL_Surface* menuTopRankSurface = IMG_Load("assets/MenuTopRank.png");
-	//next, convert to texture 
-	SDL_Texture* menuTopRankTexture = SDL_CreateTextureFromSurface(renderer, menuTopRankSurface);
-	//once we are finished with surface, free up its memory
-	SDL_FreeSurface(menuTopRankSurface);
-
-	//setting up source rectangle for knight texture
-	sourceRect = { 0,0,185,47 }; //x=0, y=0 w=0 h=0
-
-	destinationRect = { 292,400,185,47 };
-
 	//build menu top rank
 	Text* menuTopRank = new Text();
-	menuTopRank->setXY(100, 100);
+	menuTopRank->setXY(292, 400);
 	menuTopRank->setWH(185, 47);
-	menuTopRank->setTexture(menuTopRankTexture, sourceRect, destinationRect);
+	menuTopRank->setTexture("assets/MenuTopRank.png", renderer);
 	menuTopRank->setRenderer(renderer);
 	//add to list
 	entities.push_back(menuTopRank);
 
-
-
-
-	//LOAD UP menu Exit
-	//load image up as surface
-	SDL_Surface* menuExitSurface = IMG_Load("assets/MenuExit.png");
-	//next, convert to texture 
-	SDL_Texture* menuExitTexture = SDL_CreateTextureFromSurface(renderer, menuExitSurface);
-	//once we are finished with surface, free up its memory
-	SDL_FreeSurface(menuExitSurface);
-
-	//setting up source rectangle for knight texture
-	sourceRect = { 0,0,76,32 }; //x=0, y=0 w=0 h=0
-
-	destinationRect = { 292,450,76,32 };
-
 	//build menu Exit
 	Text* menuExit = new Text();
-	menuExit->setXY(100, 100);
+	menuExit->setXY(292, 450);
 	menuExit->setWH(76, 32);
-	menuExit->setTexture(menuExitTexture, sourceRect, destinationRect);
+	menuExit->setTexture("assets/MenuExit.png", renderer);
 	menuExit->setRenderer(renderer);
 	//add to list
 	entities.push_back(menuExit);
-
-
-
-
-
-
 
 
 	SDL_Surface* heroSurface = IMG_Load("assets/HeroRun.png");

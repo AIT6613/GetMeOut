@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include <SDL_image.h>
 #include "Vector.h"
 
 class Entity
@@ -16,15 +17,19 @@ protected:
 public:
 	Vector position; //position
 	Vector velocity; //how fast and which way to move this thing
+	float w, h;
+	
 
 	Entity();
 	~Entity();
 
 	void setRenderer(SDL_Renderer* renderer);
-	void setTexture(SDL_Texture* texture, SDL_Rect sourecRect, SDL_Rect deatinationRect);
+	//void setTexture(SDL_Texture* texture, SDL_Rect sourecRect, SDL_Rect deatinationRect);
+	void setTexture(const char* fileName, SDL_Renderer* renderer);
 	void setXY(float x, float y);
 	void setX(float x);
 	void setY(float y);
+	void setWH(float w, float h);
 
 	virtual void update(float dt);
 	virtual void updateMovement(float dt);

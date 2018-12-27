@@ -16,8 +16,25 @@ void Entity::setRenderer(SDL_Renderer* renderer)
 	this->renderer = renderer;
 }
 
+/*
 void Entity::setTexture(SDL_Texture* texture, SDL_Rect sourceRect, SDL_Rect destinationRect) {
 	this->texture = texture;
+	this->sourceRect = sourceRect;
+	this->destinationRect = destinationRect;
+
+}
+*/
+
+void Entity::setTexture(const char * fileName, SDL_Renderer* renderer)
+{
+	//load image up as surface
+	SDL_Surface* tempSurface = IMG_Load(fileName);
+	//next, convert to texture 
+	this->texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+	//once we are finished with surface, free up its memory
+	SDL_FreeSurface(tempSurface);
+
+
 	this->sourceRect = sourceRect;
 	this->destinationRect = destinationRect;
 
@@ -37,6 +54,12 @@ void Entity::setX(float x)
 void Entity::setY(float y)
 {
 	position.y = y;
+}
+
+void Entity::setWH(float w, float h)
+{
+	this->w = w;
+	this->h = h;
 }
 
 
