@@ -15,8 +15,8 @@
 
 #include <list>
 
-#define BLOCK_WIDTH 120	//width of one block in map
-#define BLOCK_HEIGHT 120 //height of one block in map
+//#define BLOCK_WIDTH 120	//width of one block in map
+//#define BLOCK_HEIGHT 120 //height of one block in map
 
 using namespace std;
 
@@ -220,23 +220,23 @@ Private:
 			}
 
 			//create map
-			Map* map = new Map();
+			Map* map = new Map(120,120);
 			map->loadMapFromFile("assets/Map1.txt");
 
 			//create wall object
 			//wallRegular use for regular wall
 			Wall* wallRegular = new Wall();
-			wallRegular->setWH(BLOCK_WIDTH, BLOCK_HEIGHT);
+			wallRegular->setWH(map->blockWidth, map->blockHeight);
 			wallRegular->setSourceRect(0,0,500,500);
 			wallRegular->setTexture("assets/Wall.png", renderer);
 			//wall3D use for 2d Wall, make it fill like an 3D
 			Wall* wall3D = new Wall();
-			wall3D->setWH(BLOCK_WIDTH, BLOCK_HEIGHT);
+			wall3D->setWH(map->blockWidth, map->blockHeight);
 			wall3D->setSourceRect(500, 0, 500, 500);
 			wall3D->setTexture("assets/Wall.png", renderer);
 			//dirt use for build map
 			Dirt* dirt = new Dirt();
-			dirt->setWH(BLOCK_WIDTH, BLOCK_HEIGHT);
+			dirt->setWH(map->blockWidth, map->blockHeight);
 			dirt->setSourceRect(0, 0, 500, 500);
 			dirt->setTexture("assets/Dirt.png", renderer);
 			
@@ -311,7 +311,7 @@ Private:
 				//hero->moveToColumn = (((int)hero->position.x - 500) % BLOCK_HEIGHT) + 1;
 
 				//check held keys OUTSIDE of input polling look
-					keyboardHandler.updateHeldKeys();
+					keyboardHandler.updateHeldKeys(map);
 
 
 				for (int i = 0; i < map->row; i++) 
@@ -324,7 +324,7 @@ Private:
 
 							if (map->map[i][j] == 0)
 							{
-								dirt->setXY(j * BLOCK_WIDTH, i * BLOCK_HEIGHT);
+								dirt->setXY(j * map->blockWidth, i * map->blockHeight);
 								dirt->draw();
 							}
 							else if (map->map[i][j] == 1)
@@ -335,17 +335,17 @@ Private:
 								{
 									if (map->map[i + 1][j] == 1)
 									{
-										wallRegular->setXY(j * BLOCK_WIDTH, i * BLOCK_HEIGHT);
+										wallRegular->setXY(j * map->blockWidth, i * map->blockHeight);
 										wallRegular->draw();
 									}
 									else
 									{
-										wall3D->setXY(j * BLOCK_WIDTH, i * BLOCK_HEIGHT);
+										wall3D->setXY(j * map->blockWidth, i * map->blockHeight);
 										wall3D->draw();
 									}
 								}
 								else {
-									wallRegular->setXY(j * BLOCK_WIDTH, i * BLOCK_HEIGHT);
+									wallRegular->setXY(j * map->blockWidth, i * map->blockHeight);
 									wallRegular->draw();
 								}
 

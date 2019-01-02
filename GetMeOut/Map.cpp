@@ -1,7 +1,9 @@
 #include "Map.h"
 
-Map::Map()
+Map::Map(int blockWidth, int blockHeight)
 {
+	this->blockWidth = blockWidth;
+	this->blockHeight = blockHeight;
 }
 
 

@@ -14,7 +14,10 @@ public:
 	int row, column;
 	int** map;
 
-	Map();
+	int blockWidth, blockHeight; //size of one block in map
+
+
+	Map(int blockWidth, int blockHeight);
 	~Map();
 
 	void loadMapFromFile(const char* filePath);

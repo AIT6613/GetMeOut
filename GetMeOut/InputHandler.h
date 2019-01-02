@@ -1,14 +1,12 @@
 #pragma once
 #include <SDL.h>
 #include "Hero.h"
-#include "Map.h"
 #include <iostream>
 
 using namespace std;
 
 class InputHandler
 {
-
 
 public:
 	Hero* hero;
@@ -20,4 +18,3 @@ public:
 	//abstaract function
 	virtual void update(SDL_Event* event) = 0;
 };
-

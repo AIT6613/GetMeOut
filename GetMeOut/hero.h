@@ -11,8 +11,8 @@ private:
 public:
 	bool isHeroRunFlag = false; //use to indicate hero on running action or idle
 	bool faceRight;
-	int moveToRow;	//row posiont of hero in map array
-	int moveToColumn; //column posiont of hero in map array
+	int destinationRow;	//row posiont of hero in map array
+	int destinationColumn; //column posiont of hero in map array
 
 	Hero();
 	~Hero();
