@@ -123,24 +123,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Dirt.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="KeyboardHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Backgrond.cpp" />
     <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Dirt.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="KeyboardHandler.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Backgrond.h" />
     <ClInclude Include="Vector.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

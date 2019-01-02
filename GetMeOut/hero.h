@@ -1,16 +1,19 @@
 #pragma once
 #include "Entity.h"
 #include "Animation.h"
+#include "Map.h"
 
 class Hero : public Entity
 {
 private:
 	Animation* animation = NULL;	//animation that use for this entity
-	bool faceRight;
-
-
 
 public:
+	bool isHeroRunFlag = false; //use to indicate hero on running action or idle
+	bool faceRight;
+	int moveToRow;	//row posiont of hero in map array
+	int moveToColumn; //column posiont of hero in map array
+
 	Hero();
 	~Hero();
 

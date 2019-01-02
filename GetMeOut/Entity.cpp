@@ -10,10 +10,17 @@ Entity::~Entity(void)
 }
 
 
-void Entity::setTexture(const char * fileName, SDL_Renderer* renderer)
+void Entity::setTexture(const char * fileName, SDL_Renderer* renderer, int optionRemoveBackground, int r, int g, int b)
 {
 	//load image up as surface
 	SDL_Surface* tempSurface = IMG_Load(fileName);
+
+	//set background of texture to be transparent
+	//params: surface to change
+	//		1 = turn on,  0 = turn off
+	//		which colour to user as colour key (SDL_MapRGB will find closest colour match in the surface to set it to)
+	SDL_SetColorKey(tempSurface, optionRemoveBackground, SDL_MapRGB(tempSurface->format, r, g, b));
+
 	//next, convert to texture 
 	this->texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
 	//once we are finished with surface, free up its memory
@@ -23,6 +30,16 @@ void Entity::setTexture(const char * fileName, SDL_Renderer* renderer)
 	this->sourceRect = sourceRect;
 	this->destinationRect = destinationRect;
 
+}
+
+float Entity::getX()
+{
+	return position.x;
+}
+
+float Entity::getY()
+{
+	return position.y;
 }
 
 void Entity::setXY(float x, float y)
@@ -47,6 +64,14 @@ void Entity::setWH(float w, float h)
 	this->h = h;
 }
 
+void Entity::setSourceRect(float x, float y, float w, float h)
+{
+	this->sourceRect.x = x;
+	this->sourceRect.y = y;
+	this->sourceRect.w = w;
+	this->sourceRect.h = h;
+}
+
 
 
 void Entity::update(float dt)
@@ -54,7 +79,7 @@ void Entity::update(float dt)
 	//let subclasses fill these in if they want
 }
 
-void Entity::updateMovement(float dt) {
+void Entity::updateMovement(float dt){
 	position.x = position.x + (velocity.x * dt);
 	position.y = position.y + (velocity.y * dt);
 }

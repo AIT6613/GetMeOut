@@ -42,6 +42,15 @@
     <ClCompile Include="Backgrond.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dirt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -66,6 +75,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Backgrond.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dirt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

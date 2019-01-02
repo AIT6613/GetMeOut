@@ -16,11 +16,13 @@ void KeyboardHandler::update(SDL_Event* event) {
 	if (event->type == SDL_KEYDOWN) {
 		//keydown is triggered when key is pressed, but not held
 		//AND not when the press repeate event fires
+		/*
 		if (event->key.keysym.scancode == SDL_SCANCODE_R && event->key.repeat == 0) {
 			//when user presses R key on keyboard, reset player position
 			hero->position.x = 200;
 			hero->position.y = 200;
 		}
+		*/
 
 		// If user press down on title screen
 		if (event->key.keysym.scancode == SDL_SCANCODE_DOWN && event->key.repeat == 0) {
@@ -64,7 +66,7 @@ void KeyboardHandler::update(SDL_Event* event) {
 	}
 }
 
-/*
+
 void KeyboardHandler::updateHeldKeys() {
 	//get array of all keyboard key states (1 = hel down, 0 = not held down)
 	const Uint8* keystates = SDL_GetKeyboardState(NULL); //param: array of ints to indicate which keys we want states about or NULL for all
@@ -73,15 +75,52 @@ void KeyboardHandler::updateHeldKeys() {
 	hero->velocity.x = 0;
 	hero->velocity.y = 0;
 
+
+	//TODO:
+	//cheek hero position compare with map
+	//if hero need to go some where, there should not be dead zone
+	
+	
+
 	//check held keys and update velocity
 	if (keystates[SDL_SCANCODE_UP])
+	{
+
+		//set hero action to running
+		hero->isHeroRunFlag = true;
+		//move hero up
 		hero->velocity.y = -500;
-	if (keystates[SDL_SCANCODE_DOWN])
+		
+	} 
+	else if (keystates[SDL_SCANCODE_DOWN])
+	{
+		//set hero action to running
+		hero->isHeroRunFlag = true;
+		//move hero down
 		hero->velocity.y = 500;
-	if (keystates[SDL_SCANCODE_LEFT])
+		
+	} 
+	else if (keystates[SDL_SCANCODE_LEFT])
+	{
+		//set hero action to running
+		hero->isHeroRunFlag = true;
+		//move hero to the left
 		hero->velocity.x = -500;
-	if (keystates[SDL_SCANCODE_RIGHT])
+	} 
+	else if (keystates[SDL_SCANCODE_RIGHT])
+	{
+		//set hero action to running
+		hero->isHeroRunFlag = true;
+		//move hero to the right
 		hero->velocity.x = 500;
+	}
+	else
+	{
+		//set hero action to idle
+		hero->isHeroRunFlag = false;
+	}
+
+		
 
 }
-*/
+

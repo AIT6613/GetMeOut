@@ -15,6 +15,6 @@ public:
 	~KeyboardHandler();
 
 	virtual void update(SDL_Event* event);
-	//void updateHeldKeys();
+	void updateHeldKeys();
 };
 

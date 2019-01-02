@@ -23,11 +23,14 @@ public:
 	Entity();
 	~Entity();
 
-	void setTexture(const char* fileName, SDL_Renderer* renderer);	//load image to surface, then create texture from surface
+	void setTexture(const char* fileName, SDL_Renderer* renderer, int optionRemoveBackground = 0, int r=255, int g=255, int b=255);	//load image to surface, then create texture from surface
+	float getX(); //get position x of entity
+	float getY();	//get position y of entity
 	void setXY(float x, float y);	//set position X,Y for object 
 	void setX(float x);	//set position x for object
 	void setY(float y);//set position y for object
 	void setWH(float w, float h);	//set size for object
+	void setSourceRect(float x, float y, float w, float h);
 
 	virtual void update(float dt);
 	virtual void updateMovement(float dt);

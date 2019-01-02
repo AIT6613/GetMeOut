@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include "Hero.h"
+#include "Map.h"
 #include <iostream>
 
 using namespace std;

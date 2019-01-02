@@ -32,10 +32,33 @@ void Hero::update(float dt)
 
 void Hero::draw()
 {
-	if (animation != NULL) {
-		if (faceRight)
-			animation->draw(position.x, position.y, 0.1f);
+	if (!isHeroRunFlag) 
+	{
+		//set destination position and size of object
+		SDL_Rect destinationRect = { position.x,position.y,w,h };
+
+		if (!faceRight) {
+			SDL_RendererFlip flipType = SDL_FLIP_HORIZONTAL;
+			flipType = SDL_FLIP_HORIZONTAL;
+			//draw														0 - rotate angle, NULL - SDL_Point* for rotation point on image, flip flag
+			SDL_RenderCopyEx(renderer, texture, NULL, &destinationRect,0,NULL,flipType);
+		}
 		else
-			animation->draw(position.x, position.y, 0.1f, true);
+		{
+			//draw hero texture
+			SDL_RenderCopy(renderer, texture, NULL, &destinationRect);
+		}
+
+		
 	}
+	else 
+	{
+		if (animation != NULL) {
+			if (faceRight)
+				animation->draw(position.x, position.y,0.13f);
+			else
+				animation->draw(position.x, position.y,0.13f, true);
+		}
+	}
+	
 }
