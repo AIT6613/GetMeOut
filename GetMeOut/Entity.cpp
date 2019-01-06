@@ -27,9 +27,6 @@ void Entity::setTexture(const char * fileName, SDL_Renderer* renderer, int optio
 	SDL_FreeSurface(tempSurface);
 
 	this->renderer = renderer;
-	this->sourceRect = sourceRect;
-	this->destinationRect = destinationRect;
-
 }
 
 float Entity::getX()

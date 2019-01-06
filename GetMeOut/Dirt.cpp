@@ -13,9 +13,35 @@ Dirt::~Dirt()
 
 void Dirt::draw()
 {
-	//set destination position and size of object
-	SDL_Rect destinationRect = { position.x,position.y,w,h };
+	//draw map by loop array map
+	//loop row of array; x
+	for (int i = 0; i < Globals::mazeMap->row; i++)
+	{
+		//loop column of array; y
+		for (int j = 0; j < Globals::mazeMap->column; j++)
+		{
+			try
+			{
+				//check if array is not dead zone
+				if (Globals::mazeMap->map[i][j] == 0)
+				{
+					//calculate position
+					drawX = (j * Globals::mazeMap->blockWidth) - Globals::camera.x;
+					drawY = (i * Globals::mazeMap->blockHeight) - Globals::camera.y;
 
-	//draw title background
-	SDL_RenderCopy(Globals::renderer, texture, &sourceRect, &destinationRect);
+				}
+
+				//set destination position and size of object
+				destinationRect = { (int)drawX, (int)drawY ,(int)w,(int)h };
+
+				//draw wall into map
+				SDL_RenderCopy(Globals::renderer, texture, &sourceRect, &destinationRect);
+			}
+			catch (exception ex)
+			{
+				cout << "Error: " << endl;
+			}
+
+		}
+	}
 }

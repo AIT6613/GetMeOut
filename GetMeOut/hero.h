@@ -14,6 +14,8 @@ public:
 	int destinationRow;	//row posiont of hero in map array
 	int destinationColumn; //column posiont of hero in map array
 
+	float drawX, drawY;
+
 	Hero();
 	~Hero();
 

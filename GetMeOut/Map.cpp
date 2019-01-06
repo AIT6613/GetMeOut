@@ -1,14 +1,19 @@
 #include "Map.h"
 
-Map::Map(int blockWidth, int blockHeight)
+Map::Map()
 {
-	this->blockWidth = blockWidth;
-	this->blockHeight = blockHeight;
+
 }
 
 
 Map::~Map()
 {
+}
+
+void Map::setArrayBlockSize(int blockWidth, int blockHeight)
+{
+	this->blockWidth = blockWidth;
+	this->blockHeight = blockHeight;
 }
 
 void Map::loadMapFromFile(const char * filePath)

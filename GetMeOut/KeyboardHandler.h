@@ -9,11 +9,8 @@ class KeyboardHandler :
 private:
 	int lengthOfMovement = 10;
 
-public:
-	int menuPointer = 1;	//current selected menu number
-	bool menuSelected = false;	//indicate play select menu or not. True is selecting.
 
-//public:
+public:
 	KeyboardHandler();
 	~KeyboardHandler();
 

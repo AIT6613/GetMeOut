@@ -17,9 +17,10 @@ public:
 	int blockWidth, blockHeight; //size of one block in map
 
 
-	Map(int blockWidth, int blockHeight);
+	Map();
 	~Map();
 
+	void setArrayBlockSize(int blockWidth, int blockHeight);
 	void loadMapFromFile(const char* filePath);
 
 };

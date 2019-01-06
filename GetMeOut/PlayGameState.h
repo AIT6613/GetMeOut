@@ -20,8 +20,7 @@ class PlayGameState :
 public:
 	Animation* heroRun;
 	Hero* hero;
-	Wall* wallRegular;
-	Wall* wall3D;
+	Wall* wall;
 	Dirt* dirt;
 	Map* map;
 

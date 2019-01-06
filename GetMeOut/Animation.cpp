@@ -88,7 +88,7 @@ void Animation::draw(int x, int y, bool flip)
 	sourceRect.h = frameHeight;
 
 	//destination, where do we want to draw
-	SDL_Rect dest = { x,y, frameWidth,frameHeight };
+	SDL_Rect destRect = { x,y, frameWidth,frameHeight };
 
 	//get the correct flip flag
 	SDL_RendererFlip flipType = SDL_FLIP_HORIZONTAL;
@@ -96,7 +96,7 @@ void Animation::draw(int x, int y, bool flip)
 		flipType = SDL_FLIP_HORIZONTAL;
 
 	//draw														0 - rotate angle, NULL - SDL_Point* for rotation point on image, flip flag
-	SDL_RenderCopyEx(renderer, spriteSheet, &sourceRect, &dest, 0, NULL, flipType);
+	SDL_RenderCopyEx(renderer, spriteSheet, &sourceRect, &destRect, 0, 0, flipType);
 };
 
 void Animation::draw(int x, int y, float scale, bool flip)
@@ -108,7 +108,7 @@ void Animation::draw(int x, int y, float scale, bool flip)
 	sourceRect.h = frameHeight;
 
 	// destination to draw with the scale of object size
-	SDL_Rect dest = { x,y, frameWidth*scale,frameHeight*scale };
+	SDL_Rect destRect = { x,y, frameWidth*scale,frameHeight*scale };
 
 	//get the correct flip flag
 	SDL_RendererFlip flipType = SDL_FLIP_HORIZONTAL;
@@ -116,5 +116,5 @@ void Animation::draw(int x, int y, float scale, bool flip)
 		flipType = SDL_FLIP_HORIZONTAL;
 
 	//draw														0 - rotate angle, NULL - SDL_Point* for rotation point on image, flip flag
-	SDL_RenderCopyEx(renderer, spriteSheet, &sourceRect, &dest, 0, NULL, flipType);
+	SDL_RenderCopyEx(renderer, spriteSheet, &sourceRect, &destRect, 0, 0, flipType);
 };

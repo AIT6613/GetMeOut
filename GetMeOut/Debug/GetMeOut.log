@@ -1,17 +1,7 @@
-﻿  MenuGameState.cpp
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\menugamestate.cpp(48): warning C4305: 'argument': truncation from 'double' to 'float'
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\menugamestate.cpp(82): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  PlayGameState.cpp
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(13): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(18): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(23): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(29): warning C4305: 'argument': truncation from 'double' to 'float'
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(72): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(78): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(140): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(153): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(159): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(165): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  main.cpp
-  Generating Code...
+﻿  PlayGameState.cpp
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(39): warning C4305: 'argument': truncation from 'double' to 'float'
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(81): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basic game\getmeout\getmeout\playgamestate.cpp(87): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   GetMeOut.vcxproj -> \\Mac\Home\Documents\MyDocument\Practice project\AIT_Basic Game\GetMeOut\Debug\GetMeOut.exe

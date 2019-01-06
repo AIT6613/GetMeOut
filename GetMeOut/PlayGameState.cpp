@@ -4,25 +4,35 @@
 PlayGameState::PlayGameState()
 {
 	//create map
-	map = new Map(120, 120);
+	map = new Map();
+	map->setArrayBlockSize(240, 240);
 	map->loadMapFromFile("assets/Map1.txt");
 
+	//make global mapArray
+	Globals::mazeMap = map;
+
 	//create wall object
-	//wallRegular use for regular wall
-	wallRegular = new Wall();
-	wallRegular->setWH(map->blockWidth, map->blockHeight);
-	wallRegular->setSourceRect(0, 0, 500, 500);
-	wallRegular->setTexture("assets/Wall.png", Globals::renderer);
-	//wall3D use for 2d Wall, make it fill like an 3D
+
+	/*
+	//wall3D use for 3d Wall, make it fill like an 3D game
 	wall3D = new Wall();
 	wall3D->setWH(map->blockWidth, map->blockHeight);
 	wall3D->setSourceRect(500, 0, 500, 500);
 	wall3D->setTexture("assets/Wall.png", Globals::renderer);
+	entities.push_back(wall3D);
+	*/
+
 	//dirt use for build map
 	dirt = new Dirt();
 	dirt->setWH(map->blockWidth, map->blockHeight);
 	dirt->setSourceRect(0, 0, 500, 500);
 	dirt->setTexture("assets/Dirt.png", Globals::renderer);
+	entities.push_back(dirt);
+
+	//wallRegular use for regular wall
+	wall = new Wall();
+	wall->setWH(map->blockWidth, map->blockHeight);
+	entities.push_back(wall);
 
 	//HERO
 //create animation for hero
@@ -32,7 +42,7 @@ PlayGameState::PlayGameState()
 	hero->setAnimation(heroRun);
 	hero->setTexture("assets/HeroIdle.png", Globals::renderer, 1, 10, 140, 200);
 	hero->setWH(60, 60);
-	hero->setXY(240, 340);
+	hero->setXY(500, 500);
 	//add to list
 	entities.push_back(hero);
 
@@ -57,8 +67,7 @@ PlayGameState::~PlayGameState()
 	//cleanup dynamic 
 	delete heroRun;
 	delete hero;
-	delete wallRegular;
-	delete wall3D;
+	delete wall;
 	delete dirt;
 	delete map;
 
@@ -125,56 +134,6 @@ void PlayGameState::render() {
 
 	//Clear render
 	SDL_RenderClear(Globals::renderer);
-
-	//draw map by loop array map
-	for (int i = 0; i < map->row; i++)
-	{
-		for (int j = 0; j < map->column; j++)
-		{
-			try
-			{
-				//check if array not dead zone
-				if (map->map[i][j] == 0)
-				{
-					//draw dirt. play can walk around
-					dirt->setXY(j * map->blockWidth, i * map->blockHeight);
-					dirt->draw();
-				}
-				//check if array is dead zone
-				if (map->map[i][j] == 1)
-				{
-					//check array is not last row
-					if ((i + 1) < map->row)
-					{
-						//check if the block lower this block not a dead zone. 
-						if (map->map[i + 1][j] == 1)
-						{
-							//draw 3d wall for this block.
-							wallRegular->setXY(j * map->blockWidth, i * map->blockHeight);
-							wallRegular->draw();
-						}
-						else
-						{
-							//draw regular wall
-							wall3D->setXY(j * map->blockWidth, i * map->blockHeight);
-							wall3D->draw();
-						}
-					}
-					else {
-						//draw regular wall
-						wallRegular->setXY(j * map->blockWidth, i * map->blockHeight);
-						wallRegular->draw();
-					}
-				}
-			}
-			catch (exception ex)
-			{
-
-			}
-
-		}
-	}
-	
 
 	//Loop through entities
 	for (Entity* e : entities) {

@@ -6,7 +6,7 @@ MenuGameState::MenuGameState()
 	//build title background
 	titleBackground = new Backgrond();
 	titleBackground->setXY(0, 0);	//set position to object
-	titleBackground->setWH(800, 600);	//set object size
+	titleBackground->setWH(800, 640);	//set object size
 	titleBackground->setTexture("assets/TitleBackground.png", Globals::renderer); //loade texture to object
 	//add to list
 	entities.push_back(titleBackground);

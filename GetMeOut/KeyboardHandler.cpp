@@ -23,14 +23,55 @@ void KeyboardHandler::updateHeldKeys(Map* map) {
 	//reset velocity for hero to nothng 
 	hero->velocity.x = 0;
 	hero->velocity.y = 0;
+	
+	/*
+	//check held keys and update velocity
+	if (keystates[SDL_SCANCODE_UP])
+	{
+			//set hero action to running
+			hero->isHeroRunFlag = true;
+			//move hero up
+			hero->velocity.y = -500;
+	}
+	else if (keystates[SDL_SCANCODE_DOWN])
+	{
 
 
-	//TODO:
-	//cheek hero position compare with map
-	//if hero need to go some where, there should not be dead zone
+			//set hero action to running
+			hero->isHeroRunFlag = true;
+			//move hero down
+			hero->velocity.y = 500;
+
+	}
+	else if (keystates[SDL_SCANCODE_LEFT])
+	{		
+	
+			//set hero action to running
+			hero->isHeroRunFlag = true;
+			//move hero to the left
+			hero->velocity.x = -500;
+		
+
+	}
+	else if (keystates[SDL_SCANCODE_RIGHT])
+	{
+
+			//set hero action to running
+			hero->isHeroRunFlag = true;
+			//move hero to the right
+			hero->velocity.x = 500;
+		
+
+
+	}
+	else
+	{
+		//set hero action to idle
+		hero->isHeroRunFlag = false;
+	}
+	*/
 	
 	
-
 	//check held keys and update velocity
 	if (keystates[SDL_SCANCODE_UP])
 	{
@@ -107,7 +148,7 @@ void KeyboardHandler::updateHeldKeys(Map* map) {
 		hero->isHeroRunFlag = false;
 	}
 
-		
+	
 
 }
 

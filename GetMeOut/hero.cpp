@@ -32,10 +32,14 @@ void Hero::update(float dt)
 
 void Hero::draw()
 {
+	//draw character based on offset of camera
+	drawX = position.x - Globals::camera.x;
+	drawY = position.y - Globals::camera.y;
+
 	if (!isHeroRunFlag) 
 	{
 		//set destination position and size of object
-		SDL_Rect destinationRect = { position.x,position.y,w,h };
+		destinationRect = { (int)drawX,(int)drawY,(int)w,(int)h };
 
 		if (!faceRight) {
 			SDL_RendererFlip flipType = SDL_FLIP_HORIZONTAL;
@@ -53,16 +57,11 @@ void Hero::draw()
 	}
 	else 
 	{
-
-		//draw character based on offset of camera
-		float drawX = position.x - Globals::camera.x;
-		float drawY = position.y - Globals::camera.y;
-
 		if (animation != NULL) {
 			if (faceRight)
-				animation->draw(position.x, position.y,0.13f);
+				animation->draw(drawX, drawY,0.13f);
 			else
-				animation->draw(position.x, position.y,0.13f, true);
+				animation->draw(drawX, drawY,0.13f, true);
 		}
 	}
 	
