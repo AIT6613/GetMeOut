@@ -18,12 +18,15 @@
 #include "MouseHandler.h"
 #include <list>
 #include "MenuGameState.h"
+#include <stdlib.h> // rand()
+#include <time.h> //access to time function
 
 using namespace std;
 
 int main(int argc, char** argv) {
 
-	//SDL_Rect sourceRect, destinationRect;
+	//set random series seed value
+	srand(time(NULL));	//you can get same number series by re-using a seed value e.g srand(5);
 
 	//initialise sdl2 subsystems
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)

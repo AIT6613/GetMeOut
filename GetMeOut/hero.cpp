@@ -18,6 +18,8 @@ void Hero::setAnimation(Animation* animation)
 
 void Hero::update(float dt)
 {
+
+
 	if (velocity.x > 0)
 		faceRight = true;
 	if (velocity.x < 0)
@@ -59,9 +61,9 @@ void Hero::draw()
 	{
 		if (animation != NULL) {
 			if (faceRight)
-				animation->draw(drawX, drawY,0.13f);
+				animation->draw(drawX, drawY,0.21f);
 			else
-				animation->draw(drawX, drawY,0.13f, true);
+				animation->draw(drawX, drawY,0.21f, true);
 		}
 	}
 	

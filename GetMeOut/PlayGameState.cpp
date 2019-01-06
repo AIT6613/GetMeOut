@@ -41,10 +41,22 @@ PlayGameState::PlayGameState()
 	hero = new Hero();
 	hero->setAnimation(heroRun);
 	hero->setTexture("assets/HeroIdle.png", Globals::renderer, 1, 10, 140, 200);
-	hero->setWH(60, 60);
+	hero->setWH(90, 90);
 	hero->setXY(500, 500);
 	//add to list
 	entities.push_back(hero);
+
+
+	//add zombie to the game
+	//create animation for zomebie
+	zombieAnimation = new Animation("assets/Zombie.png", Globals::renderer, 10, 310, 400, 0.16, 1, 210, 10, 190);
+	//build zombie
+	zombie = new Zombie();
+	zombie->setAnimation(zombieAnimation);
+	zombie->setXY(600, 600);
+	//add to list
+	entities.push_back(zombie);
+
 
 
 	//setup input handlers
@@ -53,7 +65,7 @@ PlayGameState::PlayGameState()
 	controllerHandler.hero = hero;
 
 	//make camera follow hero
-	cameraManager.target = hero;
+	cameraManager.target = zombie;
 
 
 	//to help with working out deltaTime
@@ -70,6 +82,8 @@ PlayGameState::~PlayGameState()
 	delete wall;
 	delete dirt;
 	delete map;
+	delete zombieAnimation;
+	delete zombie;
 
 }
 

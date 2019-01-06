@@ -7,6 +7,7 @@
 #include "Wall.h"
 #include "Dirt.h"
 #include "Map.h"
+#include "Zombie.h"
 #include "KeyboardHandler.h"
 #include "GameControllerHandler.h"
 #include "MouseHandler.h"
@@ -19,10 +20,12 @@ class PlayGameState :
 {
 public:
 	Animation* heroRun;
+	Animation* zombieAnimation;
 	Hero* hero;
 	Wall* wall;
 	Dirt* dirt;
 	Map* map;
+	Zombie* zombie;
 
 	list<Entity*> entities;
 
