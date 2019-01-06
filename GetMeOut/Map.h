@@ -21,7 +21,6 @@ public:
 	~Map();
 
 	void loadMapFromFile(const char* filePath);
-	void mapPrintTest();
 
 };
 

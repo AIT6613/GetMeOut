@@ -12,58 +12,7 @@ KeyboardHandler::~KeyboardHandler()
 }
 
 void KeyboardHandler::update(SDL_Event* event) {
-	//check the type of event first
-	if (event->type == SDL_KEYDOWN) {
-		//keydown is triggered when key is pressed, but not held
-		//AND not when the press repeate event fires
-		/*
-		if (event->key.keysym.scancode == SDL_SCANCODE_R && event->key.repeat == 0) {
-			//when user presses R key on keyboard, reset player position
-			hero->position.x = 200;
-			hero->position.y = 200;
-		}
-		*/
 
-		// If user press down on title screen
-		if (event->key.keysym.scancode == SDL_SCANCODE_DOWN && event->key.repeat == 0) {
-			 //check menuPointer, if equal 3, set menuPointer to 1. If not, increase 1
-			if (menuPointer != 3)
-			{
-				menuPointer++;
-				hero->position.y += 50;
-			}
-			else
-			{
-				//if it is the last menu, go back to first menu
-				menuPointer = 1;
-				hero->position.y = 340;
-			}
-
-		}
-
-		// if player press up in title screen
-		if (event->key.keysym.scancode == SDL_SCANCODE_UP && event->key.repeat == 0) {
-			//check menuPointer, if equal 3, set menuPointer to 1. If not, increase 1
-			if (menuPointer != 1)
-			{
-				menuPointer--;
-				hero->position.y -= 50;
-			}
-			else
-			{
-				//if it is the first menu, go back to last menu
-				menuPointer = 3;
-				hero->position.y = 440;
-			}
-
-		}
-
-
-		// Activities when player press enter in titile screen
-		if (event->key.keysym.scancode == SDL_SCANCODE_RETURN && event->key.repeat == 0) {
-			menuSelected = true;
-		}
-	}
 }
 
 

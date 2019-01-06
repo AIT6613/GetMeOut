@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -81,7 +81,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -123,13 +123,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="Dirt.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="GameControllerHandler.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GameStateMachine.cpp" />
+    <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="KeyboardHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MenuGameState.cpp" />
+    <ClCompile Include="MouseHandler.cpp" />
+    <ClCompile Include="PlayGameState.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Backgrond.cpp" />
     <ClCompile Include="Vector.cpp" />
@@ -137,12 +145,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="CameraManager.h" />
     <ClInclude Include="Dirt.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="GameControllerHandler.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="GameStateMachine.h" />
+    <ClInclude Include="Globals.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="KeyboardHandler.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MenuGameState.h" />
+    <ClInclude Include="MouseHandler.h" />
+    <ClInclude Include="PlayGameState.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Backgrond.h" />
     <ClInclude Include="Vector.h" />

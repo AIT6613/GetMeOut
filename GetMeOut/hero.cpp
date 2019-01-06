@@ -41,18 +41,23 @@ void Hero::draw()
 			SDL_RendererFlip flipType = SDL_FLIP_HORIZONTAL;
 			flipType = SDL_FLIP_HORIZONTAL;
 			//draw														0 - rotate angle, NULL - SDL_Point* for rotation point on image, flip flag
-			SDL_RenderCopyEx(renderer, texture, NULL, &destinationRect,0,NULL,flipType);
+			SDL_RenderCopyEx(Globals::renderer, texture, NULL, &destinationRect,0,NULL,flipType);
 		}
 		else
 		{
 			//draw hero texture
-			SDL_RenderCopy(renderer, texture, NULL, &destinationRect);
+			SDL_RenderCopy(Globals::renderer, texture, NULL, &destinationRect);
 		}
 
 		
 	}
 	else 
 	{
+
+		//draw character based on offset of camera
+		float drawX = position.x - Globals::camera.x;
+		float drawY = position.y - Globals::camera.y;
+
 		if (animation != NULL) {
 			if (faceRight)
 				animation->draw(position.x, position.y,0.13f);
