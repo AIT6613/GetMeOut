@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include "Vector.h"
 #include "Globals.h"
+#include <list>
 
 class Entity
 {
@@ -19,6 +20,8 @@ public:
 	Vector position; //position
 	Vector velocity; //how fast and which way to move this thing
 	float w, h;	//size of object, w = width, h = height
+
+	static list<Entity*> *entities;
 	
 
 	Entity();

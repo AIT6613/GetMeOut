@@ -24,7 +24,10 @@ public:
 	Zombie();
 	~Zombie();
 
-	void setAnimation(Animation* animation);	//set animateion to an entity
+	void setAnimation(SDL_Texture* spriteSheet, SDL_Renderer* renderer, int numberOfFrames, int frameWidth, int frameHeight, float frameDuration);	//set animateion to an entity
+	
+	
+	//void addZomebieToScreen();
 
 	//overriding
 	virtual void update(float dt);

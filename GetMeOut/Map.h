@@ -11,8 +11,9 @@ private:
 	
 
 public:
-	int row, column;
+	int row, column, freeSpaceCount = 0;
 	int** map;
+	int** freeSpace;
 
 	int blockWidth, blockHeight; //size of one block in map
 

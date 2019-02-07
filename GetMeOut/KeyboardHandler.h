@@ -7,7 +7,6 @@ class KeyboardHandler :
 {
 
 private:
-	int lengthOfMovement = 10;
 
 
 public:

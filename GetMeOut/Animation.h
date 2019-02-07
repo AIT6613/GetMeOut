@@ -19,8 +19,15 @@ public:
 	int currentFrame;	//which frame to show
 	float frameTimer;	//how long has the current frame been on screen so far
 
+	Animation* animation;
+
 	//when create new object, load sprite sheet to object                                                                             rgb color reference to remove background
+	/*
 	Animation(const char* fileName, SDL_Renderer* renderer, int numberOfFrames, int frameWidth, int frameHeight, float frameDuration, int optionRemoveBackground, int r=255, int g=255, int b=255);
+	*/
+	Animation(SDL_Texture* spriteSheet, SDL_Renderer* renderer, int numberOfFrames, int frameWidth, int frameHeight, float frameDuration);
+
+	
 
 
 	void update(float dt);

@@ -1,5 +1,6 @@
 #include "Animation.h"
 
+/*
 Animation::Animation(const char * fileName, SDL_Renderer * renderer, int numberOfFrames, int frameWidth, int frameHeight, float frameDuration, int optionRemoveBackground, int r, int g, int b)
 {
 	SDL_Surface* tempSurface = IMG_Load(fileName);
@@ -26,6 +27,23 @@ Animation::Animation(const char * fileName, SDL_Renderer * renderer, int numberO
 	frameTimer = 0;
 
 }
+*/
+
+Animation::Animation(SDL_Texture* spriteSheet, SDL_Renderer* renderer, int numberOfFrames, int frameWidth, int frameHeight, float frameDuration)
+{
+	this->spriteSheet = spriteSheet;
+	this->renderer = renderer;
+	this->numberOfFrames = numberOfFrames;
+	this->frameWidth = frameWidth;
+	this->frameHeight = frameHeight;
+	this->frameDuration = frameDuration;
+
+
+	currentFrame = 0;
+	frameTimer = 0;
+
+}
+
 
 void Animation::update(float dt)
 {

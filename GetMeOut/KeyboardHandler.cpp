@@ -25,6 +25,7 @@ void KeyboardHandler::updateHeldKeys(Map* map) {
 	hero->velocity.y = 0;
 	
 	/*
+	//Use to test when game crash from hero walking
 	//check held keys and update velocity
 	if (keystates[SDL_SCANCODE_UP])
 	{
@@ -77,7 +78,7 @@ void KeyboardHandler::updateHeldKeys(Map* map) {
 	{
 		//caluculate destination row and colum
 		                                                                    //size of block
-		hero->destinationRow = (((int)hero->position.y + (int)hero->h - lengthOfMovement) / map->blockHeight);
+		hero->destinationRow = (((int)hero->position.y + (int)hero->h - 10) / map->blockHeight);
 		hero->destinationColumn = ((int)hero->position.x + (int)hero->w) / map->blockHeight;
 		//check destination position is dezone or not
 		//if not, move hero
@@ -94,7 +95,7 @@ void KeyboardHandler::updateHeldKeys(Map* map) {
 	{
 		//caluculate destination row and colum
 																			//size of block
-		hero->destinationRow = (((int)hero->position.y + (int)hero->h + lengthOfMovement) / map->blockHeight);
+		hero->destinationRow = (((int)hero->position.y + (int)hero->h + 10) / map->blockHeight);
 		hero->destinationColumn = ((int)hero->position.x + (int)hero->w) / map->blockHeight;
 		//check destination position is dezone or not
 		//if not, move hero
@@ -112,7 +113,7 @@ void KeyboardHandler::updateHeldKeys(Map* map) {
 		//caluculate destination row and colum
 																			//size of block
 		hero->destinationRow = ((int)hero->position.y + (int)hero->h) / map->blockHeight;
-		hero->destinationColumn = (((int)hero->position.x) - lengthOfMovement) / map->blockHeight;
+		hero->destinationColumn = (((int)hero->position.x) - 10) / map->blockHeight;
 		//check destination position is dezone or not
 		//if not, move hero
 		if (map->map[hero->destinationRow][hero->destinationColumn] == 0)
@@ -129,7 +130,7 @@ void KeyboardHandler::updateHeldKeys(Map* map) {
 		//caluculate destination row and colum
 																			//size of block
 		hero->destinationRow = ((int)hero->position.y + (int)hero->h) / map->blockHeight;
-		hero->destinationColumn = (((int)hero->position.x) + (int)hero->w + lengthOfMovement) / map->blockHeight;
+		hero->destinationColumn = (((int)hero->position.x) + (int)hero->w + 10) / map->blockHeight;
 		//check destination position is dezone or not
 		//if not, move hero
 		if (map->map[hero->destinationRow][hero->destinationColumn] == 0)

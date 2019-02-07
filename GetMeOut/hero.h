@@ -19,10 +19,22 @@ public:
 	Hero();
 	~Hero();
 
-	void setAnimation(Animation* animation);	//set animateion to an entity
+	void setAnimation(SDL_Texture* spriteSheet, SDL_Renderer* renderer, int numberOfFrames, int frameWidth, int frameHeight, float frameDuration);	//set animateion to an entity
 
 	//overriding
 	virtual void update(float dt);
 	virtual void draw();
+
+	// TODO: check colision between hero and zombie
+	// if colision, decrease HP
+	// if HP < 0, hero die
+	// update topRank file 
+
+
+	// TODO: check colision between hero and curl item
+	// if yes, hero get increase HP
+
+
+
 };
 

@@ -45,12 +45,24 @@ MenuGameState::MenuGameState()
 
 	//HERO
 	//create animation for hero
-	heroRun = new Animation("assets/HeroRun.png", Globals::renderer, 10, 400, 460, 0.08, 1, 10, 140, 200);
+	//heroRun = new Animation("assets/HeroRun.png", Globals::renderer, 10, 400, 460, 0.08, 1, 10, 140, 200);
+	//Loading up a png into a texture
+	SDL_Surface* heroRunSurface = IMG_Load("assets/HeroRun.png");
+
+	SDL_SetColorKey(heroRunSurface, 1, SDL_MapRGB(heroRunSurface->format, 10, 140, 200));
+
+	//convert surface to texture
+	SDL_Texture* heroRunSpriteSheet = SDL_CreateTextureFromSurface(Globals::renderer, heroRunSurface); //=IMG_LoadTexture
+	//heroRunAnimation = new Animation(heroRunSpriteSheet, Globals::renderer, 10, 400, 460, 0.08);	//0.2 = 200ms per frame duration
+
 	//build hero
 	hero = new Hero();
-	hero->setAnimation(heroRun);
+	
+	hero->setAnimation(heroRunSpriteSheet, Globals::renderer, 10, 400, 460, 0.08);
+	hero->setTexture("assets/HeroIdle.png", Globals::renderer, 1, 10, 140, 200);
 	hero->setXY(240, 340);
-	hero->isHeroRunFlag = true;
+	hero->setWH(50, 50);
+	hero->isHeroRunFlag = false;
 	//add to list
 	entities.push_back(hero);
 
@@ -64,15 +76,21 @@ MenuGameState::MenuGameState()
 MenuGameState::~MenuGameState()
 {
 	//cleanup dynamic memory
-	delete heroRun;
+	delete heroRunAnimation;
 	delete hero;
 	delete titleBackground;
 	delete gameTitle;
 	delete menuPlayGame;
 	delete menuTopRank;
 	delete menuExit;
-}
 
+	//Loop through entities
+	for (Entity* e : entities) {
+		//delete and disalocate memory
+		delete e;
+	}
+
+}
 
 void MenuGameState::update() {
 
@@ -83,7 +101,7 @@ void MenuGameState::update() {
    //update lastUpdate, so DT is calculated correctly next loop
 	lastUpdate = SDL_GetTicks();
 
-	cout << "dt = " << dt << endl;
+	//cout << "dt = " << dt << endl;
 
 
 	//Check for user inputs
@@ -112,6 +130,12 @@ void MenuGameState::update() {
 			}
 			// If user press down on title screen
 			if (event.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+
+				//play sound
+				SoundManager::soundManager.playSound("explode");
+
+
+
 				//check menuPointer, if equal 3, set menuPointer to 1. If not, increase 1
 				if (menuPointer != 3)
 				{
@@ -128,6 +152,9 @@ void MenuGameState::update() {
 			}
 			// if player press up in title screen
 			if (event.key.keysym.scancode == SDL_SCANCODE_UP) {
+				//play sound
+				SoundManager::soundManager.playSound("explode");
+
 				//check menuPointer, if equal 3, set menuPointer to 1. If not, increase 1
 				if (menuPointer != 1)
 				{
@@ -150,7 +177,9 @@ void MenuGameState::update() {
 					Globals::gameStateMachine.pushState(new PlayGameState());
 				//check if user select to see top rank screen
 				if (menuPointer == 2)
-					//show top rank screen
+					// TODO: show top rank screen
+					//read score from file
+					//render screen
 				{
 
 				}

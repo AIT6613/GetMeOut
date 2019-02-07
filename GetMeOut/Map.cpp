@@ -48,10 +48,36 @@ void Map::loadMapFromFile(const char * filePath)
 		for (int j = 0; j < column; j++) {
 			//put char array to map array
 			map[i][j] = textChar[j]-48;
+
+			if (map[i][j] == 0)
+			{
+				//count free space for create array
+				freeSpaceCount++;
+			}
+		}
+
+	}
+
+	freeSpace = new int*[freeSpaceCount];
+	for (int i = 0; i < freeSpaceCount; ++i)
+		//crate new column for array
+		freeSpace[i] = new int[2];
+	//create free space array
+	int r = 0;
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < column; j++) {
+			if (map[i][j] == 0)
+			{
+				//count free space for create array
+				freeSpace[r][0] = i;
+				freeSpace[r][1] = j;
+			}
 		}
 
 	}
 }
+
+
 
 
 

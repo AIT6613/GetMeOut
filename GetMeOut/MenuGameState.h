@@ -8,6 +8,7 @@
 #include "Text.h"
 #include "KeyboardHandler.h"
 #include "Globals.h"
+#include "SoundManager.h"
 
 class MenuGameState :
 	public GameState
@@ -23,7 +24,7 @@ public:
 	Text* menuTopRank;
 	Text* menuExit;
 
-	Animation* heroRun;
+	Animation* heroRunAnimation;
 	Hero* hero;
 
 	KeyboardHandler keyboardHandle;

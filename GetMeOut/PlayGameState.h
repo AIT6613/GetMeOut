@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "GameState.h"
 #include <list>
 #include <SDL_image.h>
@@ -15,11 +16,14 @@
 #include "CameraManager.h"
 #include "MenuGameState.h"
 
+using namespace std;
+
 class PlayGameState :
 	public GameState
 {
+
 public:
-	Animation* heroRun;
+	Animation* heroRunAnimation;
 	Animation* zombieAnimation;
 	Hero* hero;
 	Wall* wall;
@@ -35,8 +39,17 @@ public:
 
 	CameraManager cameraManager;
 
+	float countTimeZombie = 0;
+
 	Uint32 lastUpdate; //last sdl_getTicks();
 	float dt = 0;
+
+
+	bool isPutZombie = false;
+	int randX, randY;
+	int countZombie = 0;
+
+
 
 
 	PlayGameState();

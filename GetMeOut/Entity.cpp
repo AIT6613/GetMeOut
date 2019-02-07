@@ -85,3 +85,7 @@ void Entity::draw()
 {
 	//let subclasses fill these in if they want
 }
+
+
+//initialise sattic variables at start of runtime
+list<Entity*> *Entity::entities = NULL;

@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include "Animation.h"
 #include "Entity.h"
 #include "Hero.h"
@@ -20,6 +21,7 @@
 #include "MenuGameState.h"
 #include <stdlib.h> // rand()
 #include <time.h> //access to time function
+#include "SoundManager.h"
 
 using namespace std;
 
@@ -41,6 +43,15 @@ int main(int argc, char** argv) {
 	//initialise SDL image
 	if (!(IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG) & IMG_INIT_PNG | IMG_INIT_JPG)) {
 		cout << "sdl image did load: " << IMG_GetError() << endl;
+		SDL_Quit();
+		system("pause");
+		return -1;
+	}
+
+	//initialise sdl mixer
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
+	{
+		cout << "mixer did not load" << Mix_GetError() << endl;
 		SDL_Quit();
 		system("pause");
 		return -1;
@@ -89,8 +100,31 @@ int main(int argc, char** argv) {
 	//make global renderer pointer point to the renderer we just built
 	Globals::renderer = renderer;
 
+	//Get Controller Mappings
+	SDL_GameControllerAddMappingsFromFile("assets/gamecontrollerdb.txt");
+
+
 	//start on menu screen
 	Globals::gameStateMachine.pushState(new MenuGameState());
+
+	//load up some music
+	Mix_Music* music = Mix_LoadMUS("assets/music.ogg");
+	if (music == NULL)
+	{
+		cout << " Song failed to load!!!" << endl;
+		SDL_Quit();
+		system("pause");
+		return -1;
+	}
+	//play music
+	//params: music to play, how may times to loop song (1 means loop it over again once, 0 means just play once, -1 keep playing)
+	Mix_PlayMusic(music, -1);
+
+
+	//load all game relevant
+	SoundManager::soundManager.loadSound("explode", "assets/effect.wav");
+
+	Entity::entities = new list<Entity*>();
 
 	bool loop = true;
 	while (loop)
@@ -104,6 +138,11 @@ int main(int argc, char** argv) {
 
 	//clean up any extra screen states
 	Globals::gameStateMachine.clearAll();
+
+	//stop music from playing
+	Mix_PauseMusic();
+	//delete song from memory
+	Mix_FreeMusic(music);
 
 	//CLEAN UP
 	SDL_DestroyRenderer(renderer);

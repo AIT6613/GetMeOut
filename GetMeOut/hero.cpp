@@ -11,10 +11,12 @@ Hero::~Hero(void)
 {
 }
 
-void Hero::setAnimation(Animation* animation)
+
+void Hero::setAnimation(SDL_Texture* spriteSheet, SDL_Renderer* renderer, int numberOfFrames, int frameWidth, int frameHeight, float frameDuration)
 {
-	this->animation = animation;
+	this->animation = new Animation(spriteSheet, renderer, numberOfFrames, frameWidth, frameHeight, frameDuration);
 }
+
 
 void Hero::update(float dt)
 {
