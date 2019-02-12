@@ -24,3 +24,4 @@ int Globals::screenHeight = 640;
 SDL_Rect Globals::camera;
 
 int Globals::countZombie = 0;
+int Globals::countHealItem = 0;

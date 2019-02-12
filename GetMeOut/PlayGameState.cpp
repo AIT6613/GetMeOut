@@ -14,6 +14,29 @@ PlayGameState::PlayGameState()
 	map->setArrayBlockSize(240, 240);
 	map->loadMapFromFile("assets/Map1.txt");
 
+	// TODO: get level from menu, then read file depend on level
+	//load game condition
+	string textString;
+
+	//Read level condition from file
+	ifstream mapFile("assets/Level1.txt");
+
+	//1 line is zombie gen time
+	getline(mapFile, textString);
+	zombieGenTime = atoi(textString.c_str());
+	//2 line is curl gen time
+	getline(mapFile, textString);
+	healItemGenTime= atoi(textString.c_str());
+	//3 line is damage per time
+	getline(mapFile, textString);
+	damagePoint = atoi(textString.c_str());
+	//4 line is curl point per time
+	getline(mapFile, textString);
+	healPoint = atoi(textString.c_str());
+
+	heroHealPoint = 100;
+
+
 
 	//link map to mazeMap that is global. can use any where because have a lot of function relate wiht map
 	Globals::mazeMap = map;
@@ -55,7 +78,7 @@ PlayGameState::PlayGameState()
 	entities.push_back(hero);
 	
 
-
+	/*
 	//add zombie to the game
 
 	//create animation for zomebie
@@ -78,6 +101,7 @@ PlayGameState::PlayGameState()
 	zombie->setXY(600, 600);
 	//add to list
 	entities.push_back(zombie);
+	*/
 
 
 
@@ -127,6 +151,7 @@ PlayGameState::~PlayGameState()
 	delete map;
 	delete zombieAnimation;
 	delete zombie;
+	delete heal;
 
 	//Loop through entities
 	for (Entity* e : entities) {
@@ -210,49 +235,32 @@ void PlayGameState::update() {
 
 	//drop zombie in to play screen by random an allow space from map array
 	//check the time count before drop zombie
-	if (countTimeZombie >= 1)  // TODO: this number of time count should read from level file
+	if (countTimeZombie >= zombieGenTime)  // TODO: this number of time count should read from level file
 	{
 		// TODO: random allow space, drop zombie over there
-		//random for row and column
-		
-		//check map block is not dead zone or not
-		isPutZombie = false;
+		//Loading up a png into a texture
+		SDL_Surface* zombieSurface = IMG_Load("assets/Zombie.png");
 
-		while (!isPutZombie)
-		{
-			randX = rand() % Globals::mazeMap->row;
-			randY = rand() % Globals::mazeMap->column;
+		SDL_SetColorKey(zombieSurface, 1, SDL_MapRGB(zombieSurface->format, 210, 10, 190));
 
-			if (Globals::mazeMap->map[randX][randY] == 0)
-			{
-				//Loading up a png into a texture
-				SDL_Surface* zombieSurface = IMG_Load("assets/Zombie.png");
+		//convert surface to texture
+		SDL_Texture* zombieSpriteSheet = SDL_CreateTextureFromSurface(Globals::renderer, zombieSurface);
 
-				SDL_SetColorKey(zombieSurface, 1, SDL_MapRGB(zombieSurface->format, 210, 10, 190));
+		zombie = new Zombie();
+		zombie->setAnimation(zombieSpriteSheet, Globals::renderer, 10, 310, 400, 0.16);
 
-				//convert surface to texture
-				SDL_Texture* zombieSpriteSheet = SDL_CreateTextureFromSurface(Globals::renderer, zombieSurface);
+		zombie->setWH(90, 90);
 
-				zombie = new Zombie();
-				zombie->setAnimation(zombieSpriteSheet, Globals::renderer, 10, 310, 400, 0.16);
+		//random free space to put zombie
+		int r = rand() % Globals::mazeMap->freeSpaceRows;
+		zombie->setXY(Globals::mazeMap->freeSpace[r][1] * Globals::mazeMap->blockWidth, Globals::mazeMap->freeSpace[r][0] * Globals::mazeMap->blockHeight);
 
-				// TODO: change zombie location here
+		entities.push_back(zombie);
 
-				zombie->setWH(90, 90);
-				zombie->setXY(600, 600);
+		Globals::countZombie++;
 
-
-				entities.push_back(zombie);
-
-				Globals::countZombie++;
-
-				cout << "Zombie count : " + Globals::countZombie << endl;
-				isPutZombie = true;
-			}
-		}
-		
-
-		//zombie->addZomebieToScreen();
+		cout << "Zombie count : " << Globals::countZombie << "Heal item : " << Globals::countHealItem << endl;
+			
 
 		countTimeZombie = 0;
 	}
@@ -260,7 +268,32 @@ void PlayGameState::update() {
 		countTimeZombie += dt;
 
 	
-	// TODO: Drop curl item to the map
+	// Drop heal item to the map
+	//check the time count before drop heal item
+	if (countTimeHealItem >= healItemGenTime)  // TODO: this number of time count should read from level file
+	{
+
+		//create header and cpp for CurlItem
+		heal = new Heal();
+		heal->setWH(30, 30);
+		heal->setSourceRect(0, 0, 400, 400);
+		heal->setTexture("assets/HealItem.png", Globals::renderer);
+
+		//random free space to put heal item
+		int r = rand() % Globals::mazeMap->freeSpaceRows;
+		heal->setXY(Globals::mazeMap->freeSpace[r][1] * Globals::mazeMap->blockWidth, Globals::mazeMap->freeSpace[r][0] * Globals::mazeMap->blockHeight);
+
+		entities.push_back(heal);
+
+		Globals::countHealItem++;
+		cout << "Zombie count : " << Globals::countZombie << "Heal item : " << Globals::countHealItem  << endl;
+
+		countTimeHealItem = 0;
+	}
+	else
+		countTimeHealItem += dt;
+
+
 
 
 	//Loop through entities

@@ -56,13 +56,22 @@ void Zombie::update(float dt)
 																			//size of block
 		destinationRow = (((int)position.y + (int)h - 20) / Globals::mazeMap->blockHeight);
 		destinationColumn = ((int)position.x + (int)w) / Globals::mazeMap->blockHeight;
+
 		//check destination position is dezone or not
-		//if not, move hero
-		if (Globals::mazeMap->map[destinationRow][destinationColumn] == 1)
+		//if not, move zombie
+		try
 		{
-			//make zomebie move to another direction
-			velocity.y = velocity.y - (velocity.y * 2);
+			if (Globals::mazeMap->map[destinationRow][destinationColumn] == 1)
+			{
+				//make zomebie move to another direction
+				velocity.y = velocity.y - (velocity.y * 2);
+			}
 		}
+		catch (exception ex)
+		{
+
+		}
+		
 
 	}
 	//zombie move down

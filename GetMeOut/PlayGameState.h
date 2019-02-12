@@ -15,6 +15,9 @@
 #include "Globals.h"
 #include "CameraManager.h"
 #include "MenuGameState.h"
+#include "Heal.h"
+#include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -30,6 +33,7 @@ public:
 	Dirt* dirt;
 	Map* map;
 	Zombie* zombie;
+	Heal* heal;
 
 	list<Entity*> entities;
 
@@ -39,7 +43,8 @@ public:
 
 	CameraManager cameraManager;
 
-	float countTimeZombie = 0;
+	float countTimeZombie = 0, countTimeHealItem = 0;
+	int heroHealPoint, damagePoint, healPoint, zombieGenTime, healItemGenTime;
 
 	Uint32 lastUpdate; //last sdl_getTicks();
 	float dt = 0;

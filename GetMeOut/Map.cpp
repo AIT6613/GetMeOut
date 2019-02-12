@@ -52,14 +52,15 @@ void Map::loadMapFromFile(const char * filePath)
 			if (map[i][j] == 0)
 			{
 				//count free space for create array
-				freeSpaceCount++;
+				freeSpaceRows++;
 			}
 		}
 
 	}
 
-	freeSpace = new int*[freeSpaceCount];
-	for (int i = 0; i < freeSpaceCount; ++i)
+
+	freeSpace = new int*[freeSpaceRows];
+	for (int i = 0; i < freeSpaceRows; ++i)
 		//crate new column for array
 		freeSpace[i] = new int[2];
 	//create free space array
@@ -71,6 +72,8 @@ void Map::loadMapFromFile(const char * filePath)
 				//count free space for create array
 				freeSpace[r][0] = i;
 				freeSpace[r][1] = j;
+
+				r++;
 			}
 		}
 

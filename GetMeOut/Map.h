@@ -11,7 +11,7 @@ private:
 	
 
 public:
-	int row, column, freeSpaceCount = 0;
+	int row, column, freeSpaceRows = 0;
 	int** map;
 	int** freeSpace;
 
