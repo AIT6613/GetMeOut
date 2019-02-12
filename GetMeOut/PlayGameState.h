@@ -18,6 +18,7 @@
 #include "Heal.h"
 #include <fstream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -34,6 +35,9 @@ public:
 	Map* map;
 	Zombie* zombie;
 	Heal* heal;
+
+	SDL_Texture* textTexture;
+	SDL_Rect* textDestination;
 
 	list<Entity*> entities;
 
@@ -53,6 +57,7 @@ public:
 	bool isPutZombie = false;
 	int randX, randY;
 	int countZombie = 0;
+	int countHealItem = 0;
 
 
 

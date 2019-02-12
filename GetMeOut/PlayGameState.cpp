@@ -3,22 +3,17 @@
 
 PlayGameState::PlayGameState()
 {
-	// TODO: get gameplay criteria from file
-	// read level from file
-	// read gameplay criteria from file by use level to select which one need
-	// zombie appear time, curl item appear time, damage HP per time, incrase HP per curl item.
-
 
 	//create map
 	map = new Map();
 	map->setArrayBlockSize(240, 240);
 	map->loadMapFromFile("assets/Map1.txt");
 
-	// TODO: get level from menu, then read file depend on level
 	//load game condition
-	string textString;
-
 	//Read level condition from file
+	//in this case read level 1.
+	// TODO: get level from menu then read file depend on selected menu
+	string textString;
 	ifstream mapFile("assets/Level1.txt");
 
 	//1 line is zombie gen time
@@ -30,10 +25,10 @@ PlayGameState::PlayGameState()
 	//3 line is damage per time
 	getline(mapFile, textString);
 	damagePoint = atoi(textString.c_str());
-	//4 line is curl point per time
+	//4 line is heal point per time
 	getline(mapFile, textString);
 	healPoint = atoi(textString.c_str());
-
+	//set start hero heal point to full (100)
 	heroHealPoint = 100;
 
 
@@ -56,7 +51,7 @@ PlayGameState::PlayGameState()
 
 	
 	//HERO
-//create animation for hero
+	//create animation for hero
 	//heroRun = new Animation("assets/HeroRun.png", Globals::renderer, 10, 400, 460, 0.08, 1, 10, 140, 200);
 	//Loading up a png into a texture
 	SDL_Surface* heroRunSurface = IMG_Load("assets/HeroRun.png");
@@ -76,33 +71,6 @@ PlayGameState::PlayGameState()
 	hero->setXY(500, 500);
 	//add to list
 	entities.push_back(hero);
-	
-
-	/*
-	//add zombie to the game
-
-	//create animation for zomebie
-	//zombieAnimation = new Animation("assets/Zombie.png", Globals::renderer, 10, 310, 400, 0.16, 1, 210, 10, 190);
-
-	//Loading up a png into a texture
-	SDL_Surface* zombieSurface = IMG_Load("assets/Zombie.png");
-
-	SDL_SetColorKey(zombieSurface, 1, SDL_MapRGB(zombieSurface->format, 210, 10, 190));
-
-	//convert surface to texture
-	SDL_Texture* zombieSpriteSheet = SDL_CreateTextureFromSurface(Globals::renderer, zombieSurface); //=IMG_LoadTexture
-	//zombieAnimation = new Animation(runSpriteSheet, Globals::renderer, 10, 310, 400, 0.16);	//0.2 = 200ms per frame duration
-
-
-	//build zombie
-	zombie = new Zombie();
-	zombie->setAnimation(zombieSpriteSheet, Globals::renderer, 10, 310, 400, 0.16);
-	zombie->setWH(90, 90);
-	zombie->setXY(600, 600);
-	//add to list
-	entities.push_back(zombie);
-	*/
-
 
 
 	//setup input handlers
@@ -113,7 +81,6 @@ PlayGameState::PlayGameState()
 	//make camera follow hero
 	cameraManager.target = hero;
 
-	/*
 	// TODO: load front here
 	//LOAD UP OUR AWESOME FONT
 	TTF_Font* font = TTF_OpenFont("assets/vermin_vibes_1989.ttf", 16);	//font location, font size
@@ -122,17 +89,16 @@ PlayGameState::PlayGameState()
 	//Gerate surface from font + string
 	SDL_Surface* textSurface = TTF_RenderText_Blended(font, "It's nearly Xmas!", textColor);
 	//convert to texture
-	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(Globals::renderer, textSurface);
+	textTexture = SDL_CreateTextureFromSurface(Globals::renderer, textSurface);
 	//delete surface
 	SDL_FreeSurface(textSurface);
 
 	//text destination
-	SDL_Rect textDestination;
-	textDestination.x = 100;
-	textDestination.y = 250;
+	textDestination = new SDL_Rect();
+	textDestination->x = 100 - Globals::camera.x;
+	textDestination->y = 250 - Globals::camera.y;
 	//get width and height of our texture for the destination
-	SDL_QueryTexture(textTexture, NULL, NULL, &textDestination.w, &textDestination.h);
-	*/
+	SDL_QueryTexture(textTexture, NULL, NULL, &textDestination->w, &textDestination->h);
 
 
 	//to help with working out deltaTime
@@ -152,6 +118,8 @@ PlayGameState::~PlayGameState()
 	delete zombieAnimation;
 	delete zombie;
 	delete heal;
+	delete textTexture;
+	delete textDestination;
 
 	//Loop through entities
 	for (Entity* e : entities) {
@@ -159,30 +127,40 @@ PlayGameState::~PlayGameState()
 		delete e;
 	}
 
+
 }
 
 
 void PlayGameState::update() {
 
-	/*
 	//LOAD UP OUR AWESOME FONT
-	TTF_Font* font = TTF_OpenFont("assets/vermin_vibes_1989.ttf", 16);	//font location, font size
+	TTF_Font* font = TTF_OpenFont("assets/vermin_vibes_1989.ttf", 24);	//font location, font size
 	SDL_Color textColor = { 125,0,34,0 };//r, g, b a   0-255 each
+	//set text to show during the game play
+	double s(fabs(SDL_GetTicks() / 1000));
+	int time_target = SDL_GetTicks() / 1000;
+	int hour = time_target / 3600;
+	int second = time_target % 3600;
+	int minute = second / 60;
 
+	std::stringstream ss;
+	ss << "HP: " << heroHealPoint << "/100 ";
+	ss << "    Time Playing: " << hour << ":" << minute << ":" << second;
+	ss << "    Zombies: " << countZombie << "  Heal item: " << countHealItem;
 	//Gerate surface from font + string
-	SDL_Surface* textSurface = TTF_RenderText_Blended(font, "It's nearly Xmas!", textColor);
+	SDL_Surface * textSurface = TTF_RenderText_Blended(font, ss.str().c_str(), textColor);
 	//convert to texture
-	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(Globals::renderer, textSurface);
+	textTexture = SDL_CreateTextureFromSurface(Globals::renderer, textSurface);
 	//delete surface
 	SDL_FreeSurface(textSurface);
 
 	//text destination
-	SDL_Rect textDestination;
-	textDestination.x = 100;
-	textDestination.y = 250;
+	textDestination->x = (hero->position.x -380) - Globals::camera.x;
+	textDestination->y = (hero->position.y-300) - Globals::camera.y;
 	//get width and height of our texture for the destination
-	SDL_QueryTexture(textTexture, NULL, NULL, &textDestination.w, &textDestination.h);
-	*/
+	SDL_QueryTexture(textTexture, NULL, NULL, &textDestination->w, &textDestination->h);
+	
+	
 
 	//TIME MANAGEMENT, work out Delta Time (time since last rendering)
 	Uint32 timeDiff = SDL_GetTicks() - lastUpdate;
@@ -257,9 +235,8 @@ void PlayGameState::update() {
 
 		entities.push_back(zombie);
 
-		Globals::countZombie++;
-
-		cout << "Zombie count : " << Globals::countZombie << "Heal item : " << Globals::countHealItem << endl;
+		countZombie++;
+		cout << "Zombie count : " << countZombie << "Heal item : " << countHealItem << endl;
 			
 
 		countTimeZombie = 0;
@@ -281,12 +258,12 @@ void PlayGameState::update() {
 
 		//random free space to put heal item
 		int r = rand() % Globals::mazeMap->freeSpaceRows;
-		heal->setXY(Globals::mazeMap->freeSpace[r][1] * Globals::mazeMap->blockWidth, Globals::mazeMap->freeSpace[r][0] * Globals::mazeMap->blockHeight);
+		heal->setXY((Globals::mazeMap->freeSpace[r][1] * Globals::mazeMap->blockWidth) + (Globals::mazeMap->blockWidth/2), (Globals::mazeMap->freeSpace[r][0] * Globals::mazeMap->blockHeight) + (Globals::mazeMap->blockHeight / 2));
 
 		entities.push_back(heal);
 
-		Globals::countHealItem++;
-		cout << "Zombie count : " << Globals::countZombie << "Heal item : " << Globals::countHealItem  << endl;
+		countHealItem++;
+		cout << "Zombie count : " << countZombie << "Heal item : " << countHealItem  << endl;
 
 		countTimeHealItem = 0;
 	}
@@ -300,6 +277,9 @@ void PlayGameState::update() {
 	for (Entity* e : entities) {
 		e->update(dt);
 	}
+
+	
+	
 
 	//update cameras position after hero moving in the world
 	cameraManager.update();
@@ -316,6 +296,9 @@ void PlayGameState::render() {
 	for (Entity* e : entities) {
 		e->draw();
 	}
+
+	//draw text ontop of all our entities and stuff
+	SDL_RenderCopy(Globals::renderer, textTexture, NULL, textDestination);
 
 	//show the newly drawn up frame of the game
 	SDL_RenderPresent(Globals::renderer);

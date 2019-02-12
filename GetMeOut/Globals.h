@@ -16,6 +16,5 @@ public:
 	static int screenWidth, screenHeight;
 	static SDL_Rect camera;
 
-	static int countZombie, countHealItem;
 
 };
