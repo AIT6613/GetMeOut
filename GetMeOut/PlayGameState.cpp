@@ -3,7 +3,6 @@
 
 PlayGameState::PlayGameState()
 {
-
 	//create map
 	map = new Map();
 	map->setArrayBlockSize(240, 240);
@@ -14,27 +13,44 @@ PlayGameState::PlayGameState()
 	//in this case read level 1.
 	// TODO: get level from menu then read file depend on selected menu
 	string textString;
-	ifstream mapFile("assets/Level1.txt");
+	string filePath;
+
+	// make sure to clear player name and playing time
+	playerName = "";
+	playingTime = 0;
+	
+	//read game play condition from file. 
+	if (Globals::gamePlayLevel == 1)
+		filePath = "assets/Level1.txt";
+	else if(Globals::gamePlayLevel == 2)
+		filePath = "assets/Level2.txt";
+
+	ifstream mapFile(filePath);
 
 	//1 line is zombie gen time
 	getline(mapFile, textString);
-	zombieGenTime = atoi(textString.c_str());
+	Globals::zombieGenTime = atoi(textString.c_str());
 	//2 line is curl gen time
 	getline(mapFile, textString);
-	healItemGenTime= atoi(textString.c_str());
+	Globals::healItemGenTime= atoi(textString.c_str());
 	//3 line is damage per time
 	getline(mapFile, textString);
-	damagePoint = atoi(textString.c_str());
+	Globals::damagePoint = atoi(textString.c_str());
 	//4 line is heal point per time
 	getline(mapFile, textString);
-	healPoint = atoi(textString.c_str());
+	Globals::healPoint = atoi(textString.c_str());
+	//5 line is heal point per time
+	getline(mapFile, textString);
+	Globals::zomebieSpeed = atoi(textString.c_str());
 	//set start hero heal point to full (100)
-	heroHealPoint = 100;
+	Globals::heroHealPoint = 100;
 
 
 
 	//link map to mazeMap that is global. can use any where because have a lot of function relate wiht map
 	Globals::mazeMap = map;
+
+	Entity::entities = &entities;
 
 	//dirt use for build map
 	dirt = new Dirt();
@@ -83,8 +99,8 @@ PlayGameState::PlayGameState()
 
 	// TODO: load front here
 	//LOAD UP OUR AWESOME FONT
-	TTF_Font* font = TTF_OpenFont("assets/vermin_vibes_1989.ttf", 16);	//font location, font size
-	SDL_Color textColor = { 125,0,34,0 };//r, g, b a   0-255 each
+	TTF_Font* font = TTF_OpenFont("assets/gooddog.otf", 32);	//font location, font size
+	SDL_Color textColor = { 250,0,210,0 };//r, g, b a   0-255 each
 
 	//Gerate surface from font + string
 	SDL_Surface* textSurface = TTF_RenderText_Blended(font, "It's nearly Xmas!", textColor);
@@ -104,6 +120,9 @@ PlayGameState::PlayGameState()
 	//to help with working out deltaTime
 	lastUpdate = SDL_GetTicks();
 
+	//set time start
+	startTime = SDL_GetTicks();
+
 }
 
 
@@ -120,6 +139,7 @@ PlayGameState::~PlayGameState()
 	delete heal;
 	delete textTexture;
 	delete textDestination;
+	delete zombieSurface;
 
 	//Loop through entities
 	for (Entity* e : entities) {
@@ -128,25 +148,148 @@ PlayGameState::~PlayGameState()
 	}
 
 
+	//CLEAN UP TEXTURES
+	SDL_DestroyTexture(textTexture);
+	//Cleanup font
+	TTF_CloseFont(font);
+
+}
+
+void PlayGameState::updateHighScore(string playerName, int playingTime)
+{
+	string textString;
+	string filePath;
+	
+
+	// set file path depend on player game level
+	if (Globals::gamePlayLevel == 1)
+		filePath = "assets/HighScoreLevel1.txt";
+	else if (Globals::gamePlayLevel == 2)
+		filePath = "assets/HighScoreLevel2.txt";
+
+	//Read map file
+	ifstream readFile(filePath);
+
+	//create new row for array
+	string** scoreBoard;
+	scoreBoard = new string*[10];
+	for (int i = 0; i < 10; ++i)
+		//crate new column for array
+		scoreBoard[i] = new string[2];
+	
+	//read score board from file
+	int currentPosition = 0;
+	for (int i = 0; i < 10; i++) {
+		//get string line from file
+		//read 2 line for one record,
+		//first line is name
+		if (getline(readFile, textString))
+		{
+			currentPosition = i;
+			scoreBoard[i][0] = textString.c_str();
+		}
+		else
+		{
+			exit;
+		}
+		//second line is score
+		if (getline(readFile, textString))
+		{
+			scoreBoard[i][1] = textString.c_str();
+		}
+		
+		//compare if new score is in the scoreboard
+		
+		int p = atoi(scoreBoard[i][1].c_str());
+		if (p > playingTime && playingTime != 0)
+		{
+			//keep current record to temporary variable
+			string tmpName, tmpPlayingTime;
+			tmpName = scoreBoard[i][0];
+			tmpPlayingTime = scoreBoard[i][1];
+			//insert new record to scoreboarad array
+			scoreBoard[i][0] = playerName;
+			scoreBoard[i][1] = to_string(playingTime);
+			//insert temporary record to score board array
+			i++;
+			currentPosition = i;
+			scoreBoard[i][0] = tmpName;
+			scoreBoard[i][1] = tmpPlayingTime;
+			//reset playername and playing time to noting
+			playerName = "";
+			playingTime = 0;
+
+		}
+
+	}
+	readFile.close();
+
+
+	//if record not full and player score is the last one, add to score board array
+	if (playerName != "" && playingTime != 0)
+	{
+		if (scoreBoard[currentPosition][0] != "")
+			currentPosition++;
+
+		scoreBoard[currentPosition][0] = playerName;
+		scoreBoard[currentPosition][1] = to_string(playingTime);
+		// reset player name and playing time to nothing
+		playerName = "";
+		playingTime = 0;
+
+	}
+
+	//update high score file
+	//clear all data
+	//input new data
+	/*
+	for (int i = 0; i < 10; i++)
+	{
+		cout << scoreBoard[i][0] << "  " << scoreBoard[i][1] << endl;
+	}
+	*/
+	ofstream writeFile(filePath, std::ios::out | std::ios::trunc);
+	
+	for (int i = 0; i < 10; i++)
+	{
+		if (scoreBoard[i][0].c_str() != "")
+		{
+			writeFile << scoreBoard[i][0] << endl;
+			writeFile << scoreBoard[i][1] << endl;
+		}
+		else
+		{
+			exit;
+		}
+		
+	}
+	writeFile.close();
+
 }
 
 
 void PlayGameState::update() {
 
+	//clear out old text texture
+	if (textTexture != NULL)
+		SDL_DestroyTexture(textTexture);
+
 	//LOAD UP OUR AWESOME FONT
-	TTF_Font* font = TTF_OpenFont("assets/vermin_vibes_1989.ttf", 24);	//font location, font size
-	SDL_Color textColor = { 125,0,34,0 };//r, g, b a   0-255 each
+	TTF_Font* font = TTF_OpenFont("assets/gooddog.otf", 32);	//font location, font size
+	SDL_Color textColor = { 250,0,210,0 };//r, g, b a   0-255 each
 	//set text to show during the game play
-	double s(fabs(SDL_GetTicks() / 1000));
-	int time_target = SDL_GetTicks() / 1000;
+	double s(fabs((SDL_GetTicks()-startTime) / 1000));
+	int time_target =(SDL_GetTicks()-startTime) / 1000;
 	int hour = time_target / 3600;
 	int second = time_target % 3600;
 	int minute = second / 60;
+	second = (time_target - (hour * 3600)) % 60;
 
 	std::stringstream ss;
-	ss << "HP: " << heroHealPoint << "/100 ";
-	ss << "    Time Playing: " << hour << ":" << minute << ":" << second;
-	ss << "    Zombies: " << countZombie << "  Heal item: " << countHealItem;
+	ss << "HP: " << Globals::heroHealPoint << "/100 ";
+	ss << "      Time Playing: " << hour << ":" << minute << ":" << second;
+	ss << "      Zombies: " << countZombie;
+	//ss << "    Heal item: " << countHealItem;
 	//Gerate surface from font + string
 	SDL_Surface * textSurface = TTF_RenderText_Blended(font, ss.str().c_str(), textColor);
 	//convert to texture
@@ -155,6 +298,7 @@ void PlayGameState::update() {
 	SDL_FreeSurface(textSurface);
 
 	//text destination
+	textDestination;
 	textDestination->x = (hero->position.x -380) - Globals::camera.x;
 	textDestination->y = (hero->position.y-300) - Globals::camera.y;
 	//get width and height of our texture for the destination
@@ -187,13 +331,8 @@ void PlayGameState::update() {
 		if (event.type == SDL_KEYDOWN) {
 			//if ESC pressed, exit game
 			if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
-				
-				
-				
 
 				Globals::gameStateMachine.popState();
-			
-
 				return;
 			}
 		}
@@ -210,14 +349,16 @@ void PlayGameState::update() {
 	
 	keyboardHandler.updateHeldKeys(map);
 
+	
+	
 
 	//drop zombie in to play screen by random an allow space from map array
 	//check the time count before drop zombie
-	if (countTimeZombie >= zombieGenTime)  // TODO: this number of time count should read from level file
+	if (countTimeZombie >= Globals::zombieGenTime)  // TODO: this number of time count should read from level file
 	{
 		// TODO: random allow space, drop zombie over there
 		//Loading up a png into a texture
-		SDL_Surface* zombieSurface = IMG_Load("assets/Zombie.png");
+		zombieSurface = IMG_Load("assets/Zombie.png");
 
 		SDL_SetColorKey(zombieSurface, 1, SDL_MapRGB(zombieSurface->format, 210, 10, 190));
 
@@ -244,10 +385,10 @@ void PlayGameState::update() {
 	else
 		countTimeZombie += dt;
 
-	
+	/*
 	// Drop heal item to the map
 	//check the time count before drop heal item
-	if (countTimeHealItem >= healItemGenTime)  // TODO: this number of time count should read from level file
+	if (countTimeHealItem >= Globals::healItemGenTime)  // TODO: this number of time count should read from level file
 	{
 
 		//create header and cpp for CurlItem
@@ -270,6 +411,7 @@ void PlayGameState::update() {
 	else
 		countTimeHealItem += dt;
 
+	*/
 
 
 
@@ -278,8 +420,6 @@ void PlayGameState::update() {
 		e->update(dt);
 	}
 
-	
-	
 
 	//update cameras position after hero moving in the world
 	cameraManager.update();
@@ -297,8 +437,146 @@ void PlayGameState::render() {
 		e->draw();
 	}
 
+
 	//draw text ontop of all our entities and stuff
+	//text for gameplay status including HP, playing time, number of zombie, number of heal item
 	SDL_RenderCopy(Globals::renderer, textTexture, NULL, textDestination);
+
+
+	// check if hero hp equal 0, game over
+	if (Globals::heroHealPoint == 0)
+	{
+		cout << "Game over";
+
+		//Gerate surface from font + string
+		//LOAD UP OUR AWESOME FONT
+		bool isExit = false;
+		while (!isExit)
+		{
+			
+			//adding player name from player input
+			//Check for user inputs
+			SDL_Event event;
+			//loop through all generated input events
+			while (SDL_PollEvent(&event)) {
+				//check for keyboard events
+				if (event.type == SDL_KEYDOWN) {
+					//if ESC pressed, exit game
+					if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
+						// exit while loop
+						isExit = true;
+					}
+				}
+			}
+
+			std::stringstream go;
+			go << "Game Over! Press escape to exit.";
+			TTF_Font* font = TTF_OpenFont("assets/gooddog.otf", 52);	//font location, font size
+			SDL_Color textColor = { 250,210,0,0 };//r, g, b a   0-255 each
+
+			SDL_Surface * textSurface = TTF_RenderText_Blended(font, go.str().c_str(), textColor);
+			//convert to texture
+			SDL_Texture* gameOverTexture = SDL_CreateTextureFromSurface(Globals::renderer, textSurface);
+			//delete surface
+			SDL_FreeSurface(textSurface);
+
+			//text destination
+			textDestination->x = (hero->position.x - 300) - Globals::camera.x;
+			textDestination->y = (hero->position.y - 50) - Globals::camera.y;
+			//get width and height of our texture for the destination
+			SDL_QueryTexture(gameOverTexture, NULL, NULL, &textDestination->w, &textDestination->h);
+
+			//draw text ontop of all our entities and stuff
+			SDL_RenderCopy(Globals::renderer, gameOverTexture, NULL, textDestination);
+
+			//show the newly drawn up frame of the game
+			SDL_RenderPresent(Globals::renderer);
+
+		}
+
+		//exit game
+		Globals::gameStateMachine.popState();
+		return;
+	}
+
+	// if hero can walk out from the maze
+	if (hero->isWin == true)
+	{
+		cout << "Player Win";
+
+		playingTime = (SDL_GetTicks()-startTime)/1000;
+		//Gerate surface from font + string
+		//LOAD UP OUR AWESOME FONT
+		bool isExit = false;
+		while (!isExit)
+		{
+
+			//adding player name from player input
+			//Check for user inputs
+			SDL_Event event;
+			//loop through all generated input events
+			while (SDL_PollEvent(&event)) {
+				//check for keyboard events
+				if (event.type == SDL_KEYDOWN) {
+					//if ESC pressed, exit game
+					if (event.key.keysym.scancode == SDL_SCANCODE_RETURN) {
+						// TODO: update rank file
+						updateHighScore(playerName, playingTime);
+
+						// exit while loop
+						isExit = true;
+					}
+				}
+				if (event.type = SDL_TEXTINPUT)
+				{
+					playerName += event.text.text;
+				}
+			}
+
+			TTF_Font* font = TTF_OpenFont("assets/gooddog.otf", 52);	//font location, font size
+			SDL_Color textColor = { 250,210,0,0 };//r, g, b a   0-255 each
+
+			SDL_Surface * textSurface = TTF_RenderText_Blended(font, "You Win! Please type your name.", textColor);
+			//convert to texture
+			SDL_Texture* winTexture = SDL_CreateTextureFromSurface(Globals::renderer, textSurface);
+			//delete surface
+			SDL_FreeSurface(textSurface);
+
+			//text destination
+			textDestination->x = (hero->position.x - 300) - Globals::camera.x;
+			textDestination->y = (hero->position.y - 50) - Globals::camera.y;
+			//get width and height of our texture for the destination
+			SDL_QueryTexture(winTexture, NULL, NULL, &textDestination->w, &textDestination->h);
+
+			//draw text ontop of all our entities and stuff
+			SDL_RenderCopy(Globals::renderer, winTexture, NULL, textDestination);
+
+			//draw player name
+			textSurface = TTF_RenderText_Blended(font, playerName.c_str(), textColor);
+			//convert to texture
+			winTexture = SDL_CreateTextureFromSurface(Globals::renderer, textSurface);
+			//delete surface
+			SDL_FreeSurface(textSurface);
+
+			//text destination
+			textDestination->x = (hero->position.x - 200) - Globals::camera.x;
+			textDestination->y = (hero->position.y) - Globals::camera.y;
+			//get width and height of our texture for the destination
+			SDL_QueryTexture(winTexture, NULL, NULL, &textDestination->w, &textDestination->h);
+
+			//draw text ontop of all our entities and stuff
+			SDL_RenderCopy(Globals::renderer, winTexture, NULL, textDestination);
+
+			//show the newly drawn up frame of the game
+			SDL_RenderPresent(Globals::renderer);
+
+		}
+
+		//exit game
+		Globals::gameStateMachine.popState();
+		return;
+	}
+
 
 	//show the newly drawn up frame of the game
 	SDL_RenderPresent(Globals::renderer);
@@ -310,6 +588,7 @@ bool PlayGameState::onEnter() {
 
 }
 bool PlayGameState::onExit() {
+
 	cout << "exit play game state" << endl;
 	return true;
 }

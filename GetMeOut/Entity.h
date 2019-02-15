@@ -4,6 +4,8 @@
 #include "Vector.h"
 #include "Globals.h"
 #include <list>
+#include <limits>
+#include <algorithm>
 
 class Entity
 {
@@ -24,6 +26,12 @@ public:
 	static list<Entity*> *entities;
 	
 
+	//FOR COLLISIONS
+	bool bumpIntoSolids = false; //do I run into stuff?
+	bool solid = false; //do things run into me?
+	SDL_Rect collisionBox;
+	
+
 	Entity();
 	~Entity();
 
@@ -39,5 +47,12 @@ public:
 	virtual void update(float dt);
 	virtual void updateMovement(float dt);
 	virtual void draw();
+	virtual void updateCollisionBox();
+	virtual void updateCollisions(float dt);
+
+	float SweptAABB(SDL_Rect movingBox, Vector vec, SDL_Rect otherBox, float &normalX, float &normalY);
+	SDL_Rect GetSweptBroadphaseBox(SDL_Rect b, Vector vec);
+	bool AABBCheck(SDL_Rect b1, SDL_Rect b2);
+
 };
 

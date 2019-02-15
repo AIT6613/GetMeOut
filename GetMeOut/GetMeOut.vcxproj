@@ -132,6 +132,7 @@
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Heal.cpp" />
     <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="HighScoreState.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="KeyboardHandler.cpp" />
     <ClCompile Include="main.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Heal.h" />
     <ClInclude Include="Hero.h" />
+    <ClInclude Include="HighScoreState.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="KeyboardHandler.h" />
     <ClInclude Include="Map.h" />

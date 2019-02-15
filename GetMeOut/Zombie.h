@@ -33,5 +33,6 @@ public:
 	virtual void update(float dt);
 	virtual void draw();
 	void randomDirection();
+	virtual void updateCollisions(float dt);
 };
 

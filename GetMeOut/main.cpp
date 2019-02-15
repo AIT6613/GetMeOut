@@ -144,6 +144,8 @@ int main(int argc, char** argv) {
 	//delete song from memory
 	Mix_FreeMusic(music);
 
+	
+
 	//CLEAN UP
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);

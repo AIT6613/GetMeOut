@@ -15,6 +15,7 @@ public:
 	static Map* mazeMap;
 	static int screenWidth, screenHeight;
 	static SDL_Rect camera;
+	static int gamePlayLevel;
 
-
+	static int heroHealPoint, damagePoint, healPoint, zombieGenTime, healItemGenTime, zomebieSpeed;
 };

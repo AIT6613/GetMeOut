@@ -22,3 +22,5 @@ Map* Globals::mazeMap;
 int Globals::screenWidth = 800;
 int Globals::screenHeight = 640;
 SDL_Rect Globals::camera;
+int Globals::gamePlayLevel;
+int Globals::heroHealPoint, Globals::damagePoint, Globals::healPoint, Globals::zombieGenTime, Globals::healItemGenTime, Globals::zomebieSpeed;

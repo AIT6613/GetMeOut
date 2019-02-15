@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "PlayGameState.h"
+#include "HighScoreState.h"
 #include <list>
 //#include <SDL_image.h>
 #include "Hero.h"
@@ -28,6 +29,13 @@ public:
 	Hero* hero;
 
 	KeyboardHandler keyboardHandle;
+
+	// for text
+	TTF_Font* font;
+	SDL_Color textColor;
+	SDL_Surface * textSurface;
+	SDL_Texture* textTexture;
+	SDL_Rect* textDestination;
 
 	//to help with working out deltaTime
 	Uint32 lastUpdate = SDL_GetTicks();

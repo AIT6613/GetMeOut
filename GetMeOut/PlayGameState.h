@@ -36,11 +36,14 @@ public:
 	Zombie* zombie;
 	Heal* heal;
 
+	SDL_Surface* zombieSurface;
 	SDL_Texture* textTexture;
 	SDL_Rect* textDestination;
+	TTF_Font* font;
 
 	list<Entity*> entities;
 
+	
 	KeyboardHandler keyboardHandler;
 	MouseHandler mouseHandler;
 	GameControllerHandler controllerHandler;
@@ -48,9 +51,10 @@ public:
 	CameraManager cameraManager;
 
 	float countTimeZombie = 0, countTimeHealItem = 0;
-	int heroHealPoint, damagePoint, healPoint, zombieGenTime, healItemGenTime;
+	
 
 	Uint32 lastUpdate; //last sdl_getTicks();
+	int startTime;
 	float dt = 0;
 
 
@@ -58,12 +62,16 @@ public:
 	int randX, randY;
 	int countZombie = 0;
 	int countHealItem = 0;
+	string playerName = "";
+	int playingTime = 0;
 
 
 
 
 	PlayGameState();
 	~PlayGameState();
+
+	void updateHighScore(string playerName, int playingTime);
 
 	//override those abstract methods inherited
 	virtual void update();

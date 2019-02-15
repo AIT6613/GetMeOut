@@ -1,14 +1,26 @@
-﻿  PlayGameState.cpp
-\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(68): warning C4305: 'argument': truncation from 'double' to 'float'
-\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(121): warning C4150: deletion of pointer to incomplete type 'SDL_Texture'; no destructor called
+﻿  MenuGameState.cpp
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\menugamestate.cpp(49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  PlayGameState.cpp
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(84): warning C4305: 'argument': truncation from 'double' to 'float'
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(140): warning C4150: deletion of pointer to incomplete type 'SDL_Texture'; no destructor called
   c:\sdl2_2015\include\sdl_render.h(128): note: see declaration of 'SDL_Texture'
-\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(158): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(159): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(168): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(174): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(228): warning C4305: 'argument': truncation from 'double' to 'float'
-\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(234): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(261): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(193): warning C4551: function call missing argument list
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(262): warning C4551: function call missing argument list
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(302): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(303): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(312): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(318): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(369): warning C4305: 'argument': truncation from 'double' to 'float'
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(375): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(484): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(485): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(546): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(547): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(562): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\playgamestate.cpp(563): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  main.cpp
+\\mac\home\documents\mydocument\practice project\ait_basicgame\getmeout\getmeout\getmeout\main.cpp(31): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
   GetMeOut.vcxproj -> \\Mac\Home\Documents\MyDocument\Practice project\AIT_BasicGame\GetMeOut\GetMeOut\Debug\GetMeOut.exe

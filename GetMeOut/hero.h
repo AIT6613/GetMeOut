@@ -2,6 +2,8 @@
 #include "Entity.h"
 #include "Animation.h"
 #include "Map.h"
+#include "Zombie.h"
+#include "Globals.h"
 
 class Hero : public Entity
 {
@@ -16,14 +18,20 @@ public:
 
 	float drawX, drawY;
 
+	bool isWin; //use to indicate player win or not
+
 	Hero();
 	~Hero();
 
 	void setAnimation(SDL_Texture* spriteSheet, SDL_Renderer* renderer, int numberOfFrames, int frameWidth, int frameHeight, float frameDuration);	//set animateion to an entity
 
+	void checkWinStatus(int destinationRow, int destinationColumn);
+
 	//overriding
 	virtual void update(float dt);
 	virtual void draw();
+	virtual void updateCollisions(float dt);
+	
 
 	// TODO: check colision between hero and zombie
 	// if colision, decrease HP

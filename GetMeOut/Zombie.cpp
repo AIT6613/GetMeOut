@@ -18,33 +18,14 @@ void Zombie::setAnimation(SDL_Texture* spriteSheet, SDL_Renderer* renderer, int 
 	this->animation = new Animation(spriteSheet, renderer, numberOfFrames, frameWidth, frameHeight, frameDuration);
 }
 
-/*
-void Zombie::addZomebieToScreen()
-{
-	// TODO: try to add zombie as same as add bullet to hero in the class
-	//Loading up a png into a texture
-	SDL_Surface* zombieSurface = IMG_Load("assets/Zombie.png");
-
-	SDL_SetColorKey(zombieSurface, 1, SDL_MapRGB(zombieSurface->format, 210, 10, 190));
-
-	//convert surface to texture
-	SDL_Texture* zomebieSpriteSheet = SDL_CreateTextureFromSurface(Globals::renderer, zombieSurface); //=IMG_LoadTexture
-	//zombieAnimation = new Animation(runSpriteSheet, Globals::renderer, 10, 310, 400, 0.16);	//0.2 = 200ms per frame duration
-
-	Zombie *zombie = new Zombie();
-	zombie->setAnimation(zomebieSpriteSheet, Globals::renderer, 10, 310, 400, 0.16);
-	zombie->setWH(90, 90);
-	zombie->setXY(600, 600);
-
-
-	//add to list of entities
-	Entity::entities->push_back(zombie);
-}
-*/
 
 
 void Zombie::update(float dt)
 {
+	//before we move our beloved hero, we'll see if they crash into anything on their predicted path
+	updateCollisions(dt);
+
+
 	//try to random direction
 	randomDirection();
 	//velocity.y = 800;
@@ -56,6 +37,11 @@ void Zombie::update(float dt)
 																			//size of block
 		destinationRow = (((int)position.y + (int)h - 20) / Globals::mazeMap->blockHeight);
 		destinationColumn = ((int)position.x + (int)w) / Globals::mazeMap->blockHeight;
+
+		if (destinationRow < 0)
+			destinationRow = 0;
+		if (destinationColumn < 0)
+			destinationColumn = 0;
 
 		//check destination position is dezone or not
 		//if not, move zombie
@@ -81,13 +67,27 @@ void Zombie::update(float dt)
 																			//size of block
 		destinationRow = (((int)position.y + (int)h + lengthOfMovement) / Globals::mazeMap->blockHeight);
 		destinationColumn = ((int)position.x + (int)w) / Globals::mazeMap->blockHeight;
-		//check destination position is dezone or not
-		//if it is dead zone, move zombie to another way
-		if (Globals::mazeMap->map[destinationRow][destinationColumn] == 1)
+
+		if (destinationRow < 0)
+			destinationRow = 0;
+		if (destinationColumn < 0)
+			destinationColumn = 0;
+
+		try
 		{
-			//make zomebie move to another direction
-			velocity.y = velocity.y - (velocity.y*2);
+			//check destination position is dezone or not
+		//if it is dead zone, move zombie to another way
+			if (Globals::mazeMap->map[destinationRow][destinationColumn] == 1)
+			{
+				//make zomebie move to another direction
+				velocity.y = velocity.y - (velocity.y * 2);
+			}
 		}
+		catch (const std::exception&)
+		{
+
+		}
+		
 
 	}
 	
@@ -98,14 +98,28 @@ void Zombie::update(float dt)
 																			//size of block
 		destinationRow = ((int)position.y + (int)h) / Globals::mazeMap->blockHeight;
 		destinationColumn = (((int)position.x) - lengthOfMovement) / Globals::mazeMap->blockHeight;
-		//check destination position is dezone or not
-		//if it is dead zone, move zombie to another way
-		if (Globals::mazeMap->map[destinationRow][destinationColumn] == 1)
-		{
-			//make zomebie move to another direction
-			velocity.x = velocity.x - (velocity.x * 2);
-		}
 
+		if (destinationRow < 0)
+			destinationRow = 0;
+		if (destinationColumn < 0)
+			destinationColumn = 0;
+
+		try
+		{
+			//check destination position is dezone or not
+		//if it is dead zone, move zombie to another way
+			if (Globals::mazeMap->map[destinationRow][destinationColumn] == 1)
+			{
+				//make zomebie move to another direction
+				velocity.x = velocity.x - (velocity.x * 2);
+			}
+
+		}
+		catch (const std::exception&)
+		{
+
+		}
+		
 	}
 
 	//zomebie move right
@@ -115,13 +129,27 @@ void Zombie::update(float dt)
 																			//size of block
 		destinationRow = ((int)position.y + (int)h) / Globals::mazeMap->blockHeight;
 		destinationColumn = (((int)position.x) + (int)w + lengthOfMovement) / Globals::mazeMap->blockHeight;
-		//check destination position is dezone or not
-		//if it is dead zone, move zombie to another way
-		if (Globals::mazeMap->map[destinationRow][destinationColumn] == 1)
+
+		if (destinationRow < 0)
+			destinationRow = 0;
+		if (destinationColumn < 0)
+			destinationColumn = 0;
+
+		try
 		{
-			//make zomebie move to another direction
-			velocity.x = velocity.x - (velocity.x * 2);
+			//check destination position is dezone or not
+		//if it is dead zone, move zombie to another way
+			if (Globals::mazeMap->map[destinationRow][destinationColumn] == 1)
+			{
+				//make zomebie move to another direction
+				velocity.x = velocity.x - (velocity.x * 2);
+			}
 		}
+		catch (const std::exception&)
+		{
+
+		}
+		
 
 
 	}
@@ -164,7 +192,7 @@ void Zombie::randomDirection()
 {
 	//Zombie movement
 	//set move ment speed
-	movementSpeed = 100;
+	movementSpeed = Globals::zomebieSpeed;
 
 	
 	//random 80% to change direction
@@ -181,4 +209,10 @@ void Zombie::randomDirection()
 		
 	}
 	
+}
+
+void Zombie::updateCollisions(float dt)
+{
+	//make sure collisionBox is set to the right position before working out all sorts of maths
+	updateCollisionBox();
 }

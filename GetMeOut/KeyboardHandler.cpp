@@ -23,55 +23,10 @@ void KeyboardHandler::updateHeldKeys(Map* map) {
 	//reset velocity for hero to nothng 
 	hero->velocity.x = 0;
 	hero->velocity.y = 0;
-	
-	/*
-	//Use to test when game crash from hero walking
-	//check held keys and update velocity
-	if (keystates[SDL_SCANCODE_UP])
-	{
-			//set hero action to running
-			hero->isHeroRunFlag = true;
-			//move hero up
-			hero->velocity.y = -500;
-	}
-	else if (keystates[SDL_SCANCODE_DOWN])
-	{
 
+	//set hero speed
+	int movementSpeed = 300;
 
-			//set hero action to running
-			hero->isHeroRunFlag = true;
-			//move hero down
-			hero->velocity.y = 500;
-
-	}
-	else if (keystates[SDL_SCANCODE_LEFT])
-	{		
-	
-			//set hero action to running
-			hero->isHeroRunFlag = true;
-			//move hero to the left
-			hero->velocity.x = -500;
-		
-
-	}
-	else if (keystates[SDL_SCANCODE_RIGHT])
-	{
-
-			//set hero action to running
-			hero->isHeroRunFlag = true;
-			//move hero to the right
-			hero->velocity.x = 500;
-		
-
-
-	}
-	else
-	{
-		//set hero action to idle
-		hero->isHeroRunFlag = false;
-	}
-	*/
-	
 	
 	//check held keys and update velocity
 	if (keystates[SDL_SCANCODE_UP])
@@ -80,15 +35,24 @@ void KeyboardHandler::updateHeldKeys(Map* map) {
 		                                                                    //size of block
 		hero->destinationRow = (((int)hero->position.y + (int)hero->h - 10) / map->blockHeight);
 		hero->destinationColumn = ((int)hero->position.x + (int)hero->w) / map->blockHeight;
-		//check destination position is dezone or not
-		//if not, move hero
-		if (map->map[hero->destinationRow][hero->destinationColumn] == 0)
+
+		//check hero can walk out the maze or not
+		hero->checkWinStatus(hero->destinationRow, hero->destinationColumn);
+
+		if (hero->isWin != true)
 		{
-			//set hero action to running
-			hero->isHeroRunFlag = true;
-			//move hero up
-			hero->velocity.y = -500;
+			//check destination position is dezone or not
+		//if not, move hero
+			if (map->map[hero->destinationRow][hero->destinationColumn] == 0)
+			{
+				//set hero action to running
+				hero->isHeroRunFlag = true;
+				//move hero up
+				hero->velocity.y = 0-movementSpeed;
+			}
 		}
+
+		
 
 	} 
 	else if (keystates[SDL_SCANCODE_DOWN])
@@ -97,15 +61,24 @@ void KeyboardHandler::updateHeldKeys(Map* map) {
 																			//size of block
 		hero->destinationRow = (((int)hero->position.y + (int)hero->h + 10) / map->blockHeight);
 		hero->destinationColumn = ((int)hero->position.x + (int)hero->w) / map->blockHeight;
-		//check destination position is dezone or not
-		//if not, move hero
-		if (map->map[hero->destinationRow][hero->destinationColumn] == 0)
+
+		//check hero can walk out the maze or not
+		hero->checkWinStatus(hero->destinationRow, hero->destinationColumn);
+
+		if (hero->isWin != true)
 		{
-			//set hero action to running
-			hero->isHeroRunFlag = true;
-			//move hero down
-			hero->velocity.y = 500;
+			//check destination position is dezone or not
+		//if not, move hero
+			if (map->map[hero->destinationRow][hero->destinationColumn] == 0)
+			{
+				//set hero action to running
+				hero->isHeroRunFlag = true;
+				//move hero down
+				hero->velocity.y = movementSpeed;
+			}
 		}
+
+		
 
 	} 
 	else if (keystates[SDL_SCANCODE_LEFT])
@@ -114,15 +87,25 @@ void KeyboardHandler::updateHeldKeys(Map* map) {
 																			//size of block
 		hero->destinationRow = ((int)hero->position.y + (int)hero->h) / map->blockHeight;
 		hero->destinationColumn = (((int)hero->position.x) - 10) / map->blockHeight;
-		//check destination position is dezone or not
-		//if not, move hero
-		if (map->map[hero->destinationRow][hero->destinationColumn] == 0)
+
+		//check hero can walk out the maze or not
+		hero->checkWinStatus(hero->destinationRow, hero->destinationColumn);
+
+		if (hero->isWin != true)
 		{
-			//set hero action to running
-			hero->isHeroRunFlag = true;
-			//move hero to the left
-			hero->velocity.x = -500;
+			//check destination position is dezone or not
+		//if not, move hero
+			if (map->map[hero->destinationRow][hero->destinationColumn] == 0)
+			{
+				//set hero action to running
+				hero->isHeroRunFlag = true;
+				//move hero to the left
+				hero->velocity.x = 0-movementSpeed;
+			}
 		}
+
+
+		
 		
 	} 
 	else if (keystates[SDL_SCANCODE_RIGHT])
@@ -131,15 +114,25 @@ void KeyboardHandler::updateHeldKeys(Map* map) {
 																			//size of block
 		hero->destinationRow = ((int)hero->position.y + (int)hero->h) / map->blockHeight;
 		hero->destinationColumn = (((int)hero->position.x) + (int)hero->w + 10) / map->blockHeight;
-		//check destination position is dezone or not
-		//if not, move hero
-		if (map->map[hero->destinationRow][hero->destinationColumn] == 0)
+
+		//check hero can walk out the maze or not
+		hero->checkWinStatus(hero->destinationRow, hero->destinationColumn);
+
+		if (hero->isWin != true)
 		{
-			//set hero action to running
-			hero->isHeroRunFlag = true;
-			//move hero to the right
-			hero->velocity.x = 500;
+			//check destination position is dezone or not
+		//if not, move hero
+			if (map->map[hero->destinationRow][hero->destinationColumn] == 0)
+			{
+				//set hero action to running
+				hero->isHeroRunFlag = true;
+				//move hero to the right
+				hero->velocity.x = movementSpeed;
+			}
 		}
+
+
+		
 
 		
 	}
